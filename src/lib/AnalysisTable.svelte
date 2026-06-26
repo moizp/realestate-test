@@ -53,20 +53,34 @@
   ];
 </script>
 
-<div class="table-wrap">
-  <table>
+<div
+  class="w-full overflow-x-auto rounded-xl border border-slate-200 [-webkit-overflow-scrolling:touch]"
+>
+  <table class="w-full min-w-170 border-collapse text-[0.85rem]">
     <thead>
-      <tr>
-        <th class="param-col">Parameter</th>
-        <th>
-          <div class="col-header">
-            <span class="col-badge public">Public</span>
+      <tr class="bg-indigo-950">
+        <th
+          class="w-40 border-b border-indigo-900 px-[1.1rem] py-[0.9rem] text-left text-[0.72rem] font-medium tracking-wider uppercase text-slate-500"
+        >
+          Parameter
+        </th>
+        <th class="border-b border-indigo-900 px-[1.1rem] py-[0.9rem] text-left">
+          <div class="flex items-center gap-2 text-[0.85rem] font-semibold text-slate-50">
+            <span
+              class="inline-block rounded px-[0.4rem] py-[0.15rem] text-[0.62rem] font-bold tracking-[0.08em] uppercase bg-teal-600/25 text-teal-300"
+            >
+              Public
+            </span>
             Search &amp; Listings
           </div>
         </th>
-        <th>
-          <div class="col-header">
-            <span class="col-badge portal">Portal</span>
+        <th class="border-b border-indigo-900 px-[1.1rem] py-[0.9rem] text-left">
+          <div class="flex items-center gap-2 text-[0.85rem] font-semibold text-slate-50">
+            <span
+              class="inline-block rounded px-[0.4rem] py-[0.15rem] text-[0.62rem] font-bold tracking-[0.08em] uppercase bg-indigo-400/25 text-indigo-300"
+            >
+              Portal
+            </span>
             Agent Portal
           </div>
         </th>
@@ -74,111 +88,23 @@
     </thead>
     <tbody>
       {#each rows as row, i}
-        <tr class:alt={i % 2 === 1}>
-          <td class="param-cell">{row.param}</td>
-          <td>{row.publicSite}</td>
-          <td>{row.portal}</td>
+        <tr
+          class="border-b border-slate-100 transition-colors duration-100 last:border-b-0
+            {i % 2 === 1 ? 'bg-violet-50/50' : 'bg-white'} hover:bg-violet-50"
+        >
+          <td
+            class="px-[1.1rem] py-4 align-top text-[0.78rem] font-semibold whitespace-nowrap text-indigo-950"
+          >
+            {row.param}
+          </td>
+          <td class="px-[1.1rem] py-[0.9rem] align-top leading-relaxed text-slate-700">
+            {row.publicSite}
+          </td>
+          <td class="px-[1.1rem] py-[0.9rem] align-top leading-relaxed text-slate-700">
+            {row.portal}
+          </td>
         </tr>
       {/each}
     </tbody>
   </table>
 </div>
-
-<style>
-  .table-wrap {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 0.75rem;
-    border: 1px solid #e2e8f0;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-    min-width: 680px;
-  }
-
-  thead tr {
-    background-color: #1e1b4b;
-  }
-
-  th {
-    padding: 0.9rem 1.1rem;
-    text-align: left;
-    font-weight: 500;
-    color: #94a3b8;
-    font-size: 0.78rem;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
-    border-bottom: 1px solid #312e81;
-  }
-
-  th.param-col {
-    width: 160px;
-    color: #64748b;
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .col-header {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #f1f5f9;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-
-  .col-badge {
-    display: inline-block;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.15rem 0.4rem;
-    border-radius: 0.25rem;
-  }
-
-  .col-badge.public {
-    background-color: rgba(13, 148, 136, 0.25);
-    color: #5eead4;
-  }
-
-  .col-badge.portal {
-    background-color: rgba(129, 140, 248, 0.25);
-    color: #a5b4fc;
-  }
-
-  tbody tr {
-    border-bottom: 1px solid #f1f5f9;
-    transition: background-color 0.1s;
-  }
-
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr.alt { background-color: #f8f7ff; }
-  tbody tr:hover { background-color: #f5f3ff; }
-
-  td {
-    padding: 0.9rem 1.1rem;
-    color: #374151;
-    line-height: 1.6;
-    vertical-align: top;
-  }
-
-  td.param-cell {
-    font-weight: 600;
-    font-size: 0.78rem;
-    color: #1e1b4b;
-    white-space: nowrap;
-    vertical-align: top;
-    padding-top: 1rem;
-  }
-
-  @media (max-width: 640px) {
-    th, td { padding: 0.75rem 0.875rem; }
-    th.param-col { width: 120px; }
-  }
-</style>
