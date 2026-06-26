@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Nav from './lib/Nav.svelte';
   import ComparisonTable from './lib/ComparisonTable.svelte';
+  import AnalysisTable from './lib/AnalysisTable.svelte';
 
   let activeSection = $state('overview');
 
@@ -10,9 +11,7 @@
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            activeSection = entry.target.id;
-          }
+          if (entry.isIntersecting) activeSection = entry.target.id;
         }
       },
       { rootMargin: '-10% 0px -80% 0px', threshold: 0 }
@@ -31,7 +30,7 @@
       <div class="header-eyebrow">Lead Front-End Engineer · Technical Exercise</div>
       <h1>Platform Architecture<br /><span>realestate.co.nz</span></h1>
       <p class="header-sub">
-        A response to the exercise brief — built as an interactive page rather than a
+        A response to the exercise brief — presented as an interactive page rather than a
         document, because a front-end lead should ship things that reflect the craft
         they're bringing to the role.
       </p>
@@ -40,105 +39,127 @@
 
   <div class="content">
 
-    <!-- ── 01 OVERVIEW ── -->
+    <!-- ══════════════════════════════════════
+         01 · OVERVIEW
+    ══════════════════════════════════════ -->
     <section id="overview">
       <div class="section-label">01 · Overview</div>
       <h2>Point of view</h2>
       <div class="prose lead-text">
         <p>
-          My response to this exercise is shaped by a few convictions that run through
-          every section below. I'd rather state them upfront than let them surface
-          implicitly.
+          My response is shaped by three convictions. I'd rather state them upfront
+          than let them surface implicitly through the technical choices.
         </p>
       </div>
 
       <div class="pov-grid">
         <div class="pov-card">
           <div class="pov-icon">⟳</div>
-          <h3>Lean over big-bang</h3>
+          <h3>Vertical slices over full rebuilds</h3>
           <p>
-            A full platform rebuild that ships in 18 months has too much risk embedded.
-            End-to-end vertical slices — one flow, all the way through, deployed and
-            measured — deliver value earlier and surface architectural mistakes while
-            they're still cheap to fix.
+            Total platform rewrites introduce compounding risk across security, UI, and
+            business logic simultaneously. Rebuilding end-to-end feature slices — one
+            at a time, deployed and measured — de-risks the migration and delivers value
+            from day one rather than from launch day.
           </p>
         </div>
         <div class="pov-card">
           <div class="pov-icon">⬡</div>
-          <h3>DevEx is a multiplier</h3>
+          <h3>Web Components as the migration vehicle</h3>
           <p>
-            Strong TypeScript, enforced patterns, fast CI feedback loops, and clear
-            code standards don't slow teams down — they compound. Investment at the
-            start of a rebuild makes every subsequent slice cheaper and safer to ship.
+            New features built as Custom Web Components are framework-agnostic and
+            deploy into both the legacy codebase and the new one simultaneously.
+            This is the mechanism that makes gradual migration viable — not a
+            theoretical pattern but a practical deployment strategy.
           </p>
         </div>
         <div class="pov-card">
           <div class="pov-icon">◈</div>
-          <h3>The content model is the foundation</h3>
+          <h3>DevEx is a strategic multiplier</h3>
           <p>
-            Both surfaces share underlying entities: listings, suburbs, agents.
-            Getting the content schema right — as shared TypeScript types — before the
-            frontends diverge is the highest-leverage early decision in the rebuild.
+            Shared TypeScript types, enforced CI gates, a well-governed component
+            library, and fast local dev loops don't slow teams down — they compound.
+            Investment in engineering fundamentals at the start makes every
+            subsequent slice faster and safer to ship.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ── 02 THE TWO SURFACES ── -->
+    <!-- ══════════════════════════════════════
+         02 · THE TWO SURFACES
+    ══════════════════════════════════════ -->
     <section id="surfaces">
       <div class="section-label">02 · The Two Surfaces</div>
       <h2>Mapping the problem space</h2>
       <div class="prose">
         <p>
-          Before deciding anything about architecture, I find it useful to map the
-          surfaces against the dimensions that actually drive technical decisions.
-          The table below is that mapping. The architectural conclusions that follow
-          come directly from it.
+          Before deciding anything about architecture, the brief needs translating
+          into the dimensions that actually drive technical decisions. The table
+          below is that translation — each row is a parameter that will later
+          determine a specific architectural choice.
         </p>
       </div>
 
       <div class="table-container">
         <ComparisonTable />
       </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         03 · ANALYSIS
+    ══════════════════════════════════════ -->
+    <section id="analysis">
+      <div class="section-label">03 · Analysis</div>
+      <h2>Technical dimensions</h2>
+      <div class="prose">
+        <p>
+          With the session model and content characteristics mapped, the next step
+          is to analyse the specific technical dimensions that will shape the
+          architecture. Each row below drives one or more of the decisions in the
+          sections that follow.
+        </p>
+      </div>
+
+      <div class="table-container">
+        <AnalysisTable />
+      </div>
 
       <div class="table-insight">
         <div class="insight-icon">↓</div>
         <p>
-          The table tells two distinct stories. Every dimension that matters
-          architecturally — rendering strategy, caching, session model, SEO — points
-          in different directions for each surface. That's the signal.
+          Two patterns emerge from the analysis: the surfaces are genuinely different
+          applications (not one app with two modes), and Custom Web Components appear
+          in both columns as the mechanism that connects them during migration.
         </p>
       </div>
     </section>
 
-    <!-- ── 03 ARCHITECTURE ── -->
+    <!-- ══════════════════════════════════════
+         04 · ARCHITECTURE
+    ══════════════════════════════════════ -->
     <section id="architecture">
-      <div class="section-label">03 · Architecture</div>
-      <h2>Two apps, not one platform with two themes</h2>
+      <div class="section-label">04 · Architecture</div>
+      <h2>Two apps, one content model</h2>
       <div class="prose">
         <p>
-          The comparison table points to a clear architectural fork. The temptation in a
-          rebuild is to pick one rendering strategy and one framework and make both
-          surfaces work within it. That's the wrong call here, and the table explains why.
-        </p>
-        <p>
-          The two surfaces have fundamentally different user models, session patterns,
-          and performance constraints. Forcing them into a single architecture means
-          either over-engineering the portal (with SSR complexity it doesn't need) or
-          under-serving the public site (sacrificing the SEO and performance characteristics
-          that drive business value).
+          The analysis table points to a clear architectural fork. The wrong move
+          is to pick one rendering strategy and one framework and force both surfaces
+          into it — that either over-engineers the portal (with SSR complexity it
+          doesn't need) or under-serves the public site (sacrificing the performance
+          and SEO characteristics that drive business value).
         </p>
       </div>
 
       <div class="arch-split">
         <div class="arch-card public">
           <div class="arch-card-label">Public Search &amp; Listings</div>
-          <div class="arch-card-strategy">SSR + ISR</div>
+          <div class="arch-card-strategy">SSR + Tiered ISR</div>
           <ul>
-            <li>Cold, unauthenticated visitors — first-load speed is critical</li>
-            <li>SEO and Core Web Vitals directly affect acquisition and ranking</li>
-            <li>Content of mixed freshness — tiered caching by content type</li>
-            <li>AI crawlers (GEO) expect structured data and fast TTFB</li>
+            <li>Cold, unauthenticated visitors — first-load speed is business-critical</li>
+            <li>SEO and Core Web Vitals directly affect traffic acquisition</li>
+            <li>Content of mixed freshness — different caching for listings vs suburb data</li>
+            <li>Structured data for AI answer engines (AEO) and agent marketplaces</li>
           </ul>
         </div>
         <div class="arch-card portal">
@@ -146,38 +167,45 @@
           <div class="arch-card-strategy">CSR / SPA</div>
           <ul>
             <li>Warm, authenticated, repeat sessions — no cold-load problem</li>
-            <li>No SEO requirement — SSR adds complexity with no return</li>
-            <li>Interaction responsiveness and reliability over first-load speed</li>
-            <li>Optimistic state management and multi-tab consistency</li>
+            <li>No SEO requirement — SSR adds complexity with zero return</li>
+            <li>Interaction responsiveness and data reliability are the priority</li>
+            <li>PWA capabilities (offline drafting, push notifications) from day one</li>
           </ul>
         </div>
       </div>
 
       <div class="prose">
         <p>
-          The frontends diverge. The data layer doesn't. Both surfaces operate on the
-          same underlying content entities — listings, suburbs, agents — served through
-          a shared API. The portal writes; the public site reads. Getting that contract
-          right is what allows the two frontends to evolve independently without drifting
-          apart at the data level.
+          The frontends diverge. The content model doesn't. Both surfaces operate
+          on the same entities — listings, suburbs, agents — served through a shared
+          API. The portal writes; the public site reads. Defining that contract as
+          shared TypeScript types, before either frontend is built, is the
+          highest-leverage early decision in the rebuild.
+        </p>
+        <p>
+          Custom Web Components are the bridge. New features built as Web Components
+          deploy into both the legacy codebase and the new one simultaneously —
+          enabling gradual migration without parallel maintenance of two full codebases.
+          The deep dive below covers this in detail.
         </p>
       </div>
     </section>
 
     <!-- ── DEEP DIVES HEADER ── -->
     <div class="deep-dive-header">
-      <div class="section-label">04 · Deep Dives</div>
+      <div class="section-label">05 · Deep Dives</div>
       <h2>Where I've gone deep</h2>
       <div class="prose">
         <p>
-          Rather than covering everything at surface level, I've focused on the four
-          areas I think matter most — either because the risk is highest, or because
-          the conventional answers tend to be wrong.
+          Three areas I find most important — either because the risk is highest,
+          or because the conventional approach tends to be wrong.
         </p>
       </div>
     </div>
 
-    <!-- ── RENDERING STRATEGY ── -->
+    <!-- ══════════════════════════════════════
+         RENDERING STRATEGY
+    ══════════════════════════════════════ -->
     <section id="rendering">
       <div class="deep-dive-section-label">↳ Rendering Strategy</div>
       <h3>Tiered freshness, not a single rendering model</h3>
@@ -185,249 +213,241 @@
       <div class="prose">
         <p>
           The standard answer to "SEO-critical, performance-critical" is "use SSR."
-          That's right, but it's incomplete. The public site's content falls into two
-          distinct freshness categories, and treating them identically is wasteful.
+          That's right, but incomplete. The public site's content falls into two
+          distinct freshness categories, and treating them identically wastes CDN
+          efficiency and increases origin load.
         </p>
       </div>
 
       <div class="split-callout">
         <div class="callout-block high-change">
-          <div class="callout-tag">High change</div>
+          <div class="callout-tag">High-change content</div>
           <div class="callout-title">Listing pages</div>
-          <p>Status, price, and photos change throughout a sale cycle. A listing can move from Active to Under Offer in a day.</p>
-          <div class="callout-strategy">Short ISR window (minutes) + on-demand revalidation triggered by portal saves</div>
+          <p>Status, price, and photos change throughout a sale cycle. A listing can move from Active to Under Offer within a day.</p>
+          <div class="callout-strategy">
+            Short ISR window (minutes) + on-demand invalidation triggered by portal saves
+          </div>
         </div>
         <div class="callout-block low-change">
-          <div class="callout-tag">Low change</div>
+          <div class="callout-tag">Low-change content</div>
           <div class="callout-title">Suburb pages, school zones, agent profiles</div>
-          <p>Change rarely — school catchments don't shift week to week, suburb statistics are updated periodically.</p>
-          <div class="callout-strategy">Long ISR window (hours or days) — CDN serves cached content aggressively</div>
+          <p>School catchments don't shift week-to-week. Suburb statistics are updated periodically by a data pipeline, not by agents.</p>
+          <div class="callout-strategy">
+            Long ISR window (hours or days) — CDN serves cached content aggressively
+          </div>
         </div>
       </div>
 
       <div class="prose">
         <p>
-          On-demand ISR is the key mechanism that makes this work. When an agent
-          saves a listing in the portal, it triggers an explicit cache invalidation
-          for that listing's public URL. The CDN serves stale content until the
-          save event, then refreshes immediately. This gives the performance
-          profile of a static site with the freshness of SSR.
+          <strong>On-demand ISR</strong> is the key mechanism. When an agent saves a listing
+          in the portal, it triggers an explicit cache invalidation for that listing's
+          public URL. The CDN serves stale content until the save event fires, then
+          refreshes immediately. This gives the performance profile of a static site
+          with the freshness of SSR — without requiring the public site to bypass the
+          CDN on every request.
         </p>
         <p>
-          <strong>The portal needs none of this.</strong> SSR adds framework
-          complexity, server infrastructure, and hydration overhead for a surface
-          where users are warm, authenticated, and already past their first-load.
-          A well-built SPA with good state management and optimistic UI updates
-          will feel faster to an agent editing a listing than an SSR equivalent
-          with the same backend latency.
+          <strong>The portal doesn't need any of this.</strong> Sessions are warm and
+          authenticated. A well-built SPA with optimistic UI updates will feel faster
+          to an agent editing a listing than an SSR equivalent with the same backend
+          latency. SSR on the portal would be complexity for no user benefit.
         </p>
-        <p>
-          The rendering strategy choice is therefore not "which framework wins"
-          but "which rendering model fits which session model" — and the answer
-          is different for each surface.
-        </p>
-      </div>
-
-      <div class="placeholder-note">
-        <div class="placeholder-icon">✎</div>
-        <div>
-          <strong>To be expanded:</strong> specific framework recommendations and
-          monorepo vs. separate repo structure — I'll develop these once I've reviewed
-          the current stack and constraints in more detail.
-        </div>
       </div>
     </section>
 
-    <!-- ── SHARED DATA LAYER ── -->
-    <section id="data-layer">
-      <div class="deep-dive-section-label">↳ Shared Data Layer</div>
-      <h3>Two frontends, one content model</h3>
+    <!-- ══════════════════════════════════════
+         MIGRATION STRATEGY
+    ══════════════════════════════════════ -->
+    <section id="migration">
+      <div class="deep-dive-section-label">↳ Migration Strategy</div>
+      <h3>The case against a full rebuild</h3>
 
       <div class="prose">
         <p>
-          Even though the two surfaces use different rendering strategies — and may
-          be built in different frameworks — they share a source of truth: what a
-          listing <em>is</em>, what a suburb <em>is</em>, what an agent <em>is</em>.
+          A total platform rewrite is the most common wrong answer to "our platform
+          needs rebuilding." The instinct makes sense — start fresh, do it right —
+          but full rebuilds introduce three categories of risk simultaneously:
         </p>
-        <p>
-          Getting this content schema right before the frontends diverge is the
-          highest-leverage early decision in the rebuild. The schema defines the
-          contract between:
-        </p>
-        <ul>
-          <li><strong>The portal</strong> — agents create and edit listings</li>
-          <li><strong>The public site</strong> — consumers discover and evaluate listings</li>
-          <li><strong>Analytics</strong> — tracking events reference listing IDs, property types, price brackets</li>
-          <li><strong>AI components</strong> on both surfaces — description drafting, search ranking, and anomaly detection all operate on the same listing entity</li>
-        </ul>
       </div>
 
-      <div class="data-flow">
-        <div class="flow-node write">
-          <div class="flow-label">Portal</div>
-          <div class="flow-sub">Agents write</div>
+      <div class="risks-preview">
+        <div class="risk-preview-item">
+          <div class="risk-preview-number">01</div>
+          <div>
+            <div class="risk-preview-title">Security surface explodes</div>
+            <p>
+              Every line of new code is a potential vulnerability. A full rebuild
+              means a full security audit at launch, under time pressure, on a
+              codebase that hasn't been hardened by production exposure. The legacy
+              app has years of accumulated security patches; the rewrite starts from zero.
+            </p>
+          </div>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node store">
-          <div class="flow-label">Content Store</div>
-          <div class="flow-sub">Single source of truth</div>
+        <div class="risk-preview-item">
+          <div class="risk-preview-number">02</div>
+          <div>
+            <div class="risk-preview-title">UI regression is inevitable</div>
+            <p>
+              Years of responsive layout fixes, browser compatibility workarounds,
+              and edge-case handling live in the old code, often undocumented. A
+              rewrite rediscovers all of them in production, at scale, under user
+              pressure, with no quick rollback path.
+            </p>
+          </div>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node read">
-          <div class="flow-label">Public Site</div>
-          <div class="flow-sub">CDN-cached reads</div>
+        <div class="risk-preview-item">
+          <div class="risk-preview-number">03</div>
+          <div>
+            <div class="risk-preview-title">Business logic is poorly documented</div>
+            <p>
+              Pricing edge cases, listing validation rules, agent permission
+              hierarchies — these are rarely in specs. They're in the code, often
+              discovered only when a rewrite gets them wrong. A full rewrite
+              re-discovers them in production rather than in a test environment.
+            </p>
+          </div>
         </div>
       </div>
+
+      <div class="section-divider">The alternative: vertical slices via Custom Web Components</div>
 
       <div class="prose">
         <p>
-          Cache invalidation strategy: when the portal saves a listing, it
-          triggers on-demand ISR revalidation for that listing's public page.
-          Near-real-time consistency without requiring the public site to bypass
-          the CDN on every request.
-        </p>
-        <p>
-          <strong>Shared TypeScript types</strong> between both codebases make
-          the schema a first-class constraint, not a runtime convention. A change
-          to the listing schema surfaces as type errors across both surfaces
-          simultaneously — the type system enforces the contract before the bug
-          reaches production.
+          Rather than rebuilding the platform, the proposal is to rebuild it
+          <em>feature by feature</em>, deploying each new feature as a Custom Web
+          Component that works in both the legacy codebase and the new one.
         </p>
       </div>
 
-      <div class="placeholder-note">
-        <div class="placeholder-icon">✎</div>
-        <div>
-          <strong>To be expanded:</strong> specific API pattern (GraphQL, REST, BFF)
-          and data ownership/versioning strategy.
+      <div class="wc-explainer">
+        <div class="wc-explainer-header">
+          <div class="wc-badge">Web Components</div>
+          Why this primitive specifically
         </div>
-      </div>
-    </section>
-
-    <!-- ── DELIVERY MODEL ── -->
-    <section id="delivery">
-      <div class="deep-dive-section-label">↳ Delivery Model</div>
-      <h3>Ship vertical slices, not layers</h3>
-
-      <div class="prose">
-        <p>
-          The temptation in a platform rebuild is to rebuild the platform. That
-          means months of foundational work — new design system, new API layer,
-          new deployment infrastructure — before a single user sees anything
-          different. I'd propose the opposite.
-        </p>
-      </div>
-
-      <div class="three-col">
-        <div class="approach-card bad">
-          <div class="approach-label">❌ Big-bang rebuild</div>
-          <p>Everything ships at once. High risk, no feedback until launch, old system runs in parallel doubling maintenance burden.</p>
-        </div>
-        <div class="approach-card bad">
-          <div class="approach-label">⚠ Layer-by-layer</div>
-          <p>API first, then UI. No value delivered until both layers are complete. Engineers don't learn from real usage until too late.</p>
-        </div>
-        <div class="approach-card good">
-          <div class="approach-label">✓ Vertical slices</div>
-          <p>One complete user flow, rebuilt end-to-end, shipped and measured. Each slice informs the next. Value from day one.</p>
+        <div class="wc-grid">
+          <div class="wc-feature">
+            <div class="wc-feature-title">Framework-agnostic</div>
+            <p>A Svelte component compiled as a Custom Web Component (<code>customElements.define('rea-search', SearchComponent)</code>) drops into any environment — legacy React, legacy vanilla JS, new Svelte app. No adapter needed.</p>
+          </div>
+          <div class="wc-feature">
+            <div class="wc-feature-title">Self-contained</div>
+            <p>Each component owns its logic, its styles (Shadow DOM optional), and its tests. It can be developed, reviewed, and deployed independently of the surrounding codebase.</p>
+          </div>
+          <div class="wc-feature">
+            <div class="wc-feature-title">Zero-risk deployment</div>
+            <p>Drop <code>&lt;rea-search-filters /&gt;</code> into the legacy app alongside the old filters. Run both in production. Validate. Remove the legacy code. No big-bang cutover, no parallel maintenance.</p>
+          </div>
+          <div class="wc-feature">
+            <div class="wc-feature-title">Same component, two hosts</div>
+            <p>The identical Web Component powers the old platform during migration and the new platform after. No duplication of effort — you build a feature once and it ships everywhere.</p>
+          </div>
         </div>
       </div>
 
       <div class="prose">
         <p>
-          <strong>What a first slice looks like in practice.</strong> Pick the
-          highest-value flow — for realestate.co.nz, that's likely property search
-          (highest traffic, SEO-critical, highest business value). Rebuild that flow
-          end-to-end on the new architecture: the updated query understanding model,
-          the new SSR rendering layer, the new CDN configuration, and the new
-          performance monitoring. All for one flow.
+          This is the <strong>strangler fig pattern</strong> applied to the frontend:
+          new code wraps and gradually replaces the old, without requiring the old
+          system to change around it, and without a cutover moment where everything
+          has to work simultaneously for the first time.
         </p>
-        <p>
-          Ship it as <code>/search-v2</code> or behind a feature flag. Measure.
-          Compare Core Web Vitals to the baseline. Iterate. Then expand to the
-          next slice.
-        </p>
+      </div>
+
+      <div class="slice-flow">
+        <div class="slice-step">
+          <div class="slice-step-num">1</div>
+          <div class="slice-step-content">
+            <div class="slice-step-title">Pick the highest-value slice</div>
+            <p>Property search filters, listing creation flow, or suburb detail page — whichever is highest-traffic or highest-pain.</p>
+          </div>
+        </div>
+        <div class="slice-connector">↓</div>
+        <div class="slice-step">
+          <div class="slice-step-num">2</div>
+          <div class="slice-step-content">
+            <div class="slice-step-title">Build end-to-end as a Web Component</div>
+            <p>TypeScript types → component → tests → API contract. The full slice, in isolation.</p>
+          </div>
+        </div>
+        <div class="slice-connector">↓</div>
+        <div class="slice-step">
+          <div class="slice-step-num">3</div>
+          <div class="slice-step-content">
+            <div class="slice-step-title">Deploy into the legacy app</div>
+            <p>Drop the Web Component into the old codebase. Run it in production alongside or instead of the legacy equivalent. Validate with real traffic.</p>
+          </div>
+        </div>
+        <div class="slice-connector">↓</div>
+        <div class="slice-step">
+          <div class="slice-step-num">4</div>
+          <div class="slice-step-content">
+            <div class="slice-step-title">Retire the legacy code for that feature</div>
+            <p>Once the new component is validated, remove the old implementation. The platform is incrementally newer with each slice.</p>
+          </div>
+        </div>
+        <div class="slice-connector">↓</div>
+        <div class="slice-step">
+          <div class="slice-step-num">5</div>
+          <div class="slice-step-content">
+            <div class="slice-step-title">Repeat — each slice is faster than the last</div>
+            <p>The shared component library, shared types, and established patterns mean the second slice costs less than the first, and the tenth costs less than the second.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
         <p>
           <strong>What needs to exist before the first slice.</strong> The shared
-          design system and shared TypeScript content types need to be in place
-          first — not a full pre-build, but enough that the first slice isn't
-          making decisions that the second slice has to undo. These are the
-          foundations that enable parallel slice development without divergence.
-        </p>
-      </div>
-
-      <div class="devex-callout">
-        <div class="devex-title">DevEx investment compounds</div>
-        <div class="devex-grid">
-          <div class="devex-item">
-            <span class="devex-bullet">→</span>
-            <span>Enforced TypeScript for the content schema — type errors surface contract violations immediately</span>
-          </div>
-          <div class="devex-item">
-            <span class="devex-bullet">→</span>
-            <span>CI that runs type checking, visual regression, and synthetic CWV monitoring on every PR</span>
-          </div>
-          <div class="devex-item">
-            <span class="devex-bullet">→</span>
-            <span>Clear component contribution guidelines so the design system grows consistently across slices</span>
-          </div>
-          <div class="devex-item">
-            <span class="devex-bullet">→</span>
-            <span>Fast local dev loop — if the feedback cycle is slow, engineers route around it</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="prose">
-        <p>
-          The goal is that each slice is incrementally faster to build than the
-          last, because the foundations are solid and the patterns are established.
-          The DevEx investment at the start isn't overhead — it's interest that
-          compounds across every subsequent slice.
+          design system (tokens, base components) and the shared TypeScript content
+          types need to be established first. Not complete — they grow with each
+          slice — but stable enough that the first slice isn't making foundational
+          decisions that the second slice has to undo. This pre-work is the only
+          upfront investment before value starts shipping.
         </p>
       </div>
     </section>
 
-    <!-- ── RISKS ── -->
+    <!-- ══════════════════════════════════════
+         RISKS
+    ══════════════════════════════════════ -->
     <section id="risks">
       <div class="deep-dive-section-label">↳ Risks</div>
-      <h3>Four risks worth naming upfront</h3>
+      <h3>Risks worth naming at the start</h3>
 
       <div class="prose">
         <p>
-          These are the risks I'd bring into the open at the start of the project,
-          rather than let them surface as incidents mid-rebuild.
+          These are the risks I'd surface at project kickoff, not mid-rebuild.
+          The vertical slice approach mitigates several of them structurally —
+          the ones below are the residual risks that still need explicit management.
         </p>
       </div>
 
       <div class="risks-list">
-
         <div class="risk-item">
           <div class="risk-header">
             <div class="risk-number risk-critical">01</div>
             <div>
-              <div class="risk-title">SEO regression during the rebuild</div>
+              <div class="risk-title">SEO regression during migration</div>
               <div class="risk-severity critical">Critical</div>
             </div>
           </div>
           <div class="prose">
             <p>
-              Organic search is a primary acquisition channel for a property platform.
-              A 10% ranking drop — entirely achievable through a careless rebuild — is a
-              direct, measurable business loss. The specific risks are:
+              Organic search is a primary acquisition channel. A 10% ranking drop
+              during a migration is a direct, measurable revenue loss — not a technical
+              inconvenience. The specific risks are URL structure changes that break
+              link equity, SSR misconfiguration that serves crawlers thin or empty
+              content, canonical URL errors during parallel serving, and Core Web
+              Vitals regression.
             </p>
-            <ul>
-              <li>URL structure changes that break established link equity</li>
-              <li>SSR misconfiguration causing crawlers to receive thin or empty content</li>
-              <li>Canonical URL errors during parallel serving (old + new site)</li>
-              <li>Core Web Vitals regression — Google uses this as a ranking signal</li>
-            </ul>
             <p>
-              <strong>Mitigation:</strong> URL-level integration tests in CI, synthetic
-              CWV monitoring from day one (not post-launch), explicit canonical URL policy
-              checked in CI, redirect testing phase before any URL structure changes go
-              live. The vertical slice model helps here — each slice has performance
-              baselines established before the old route is retired.
+              <strong>Mitigation:</strong> The vertical slice model helps here — each
+              slice migrates one URL pattern at a time, with performance baselines
+              established before the legacy route is retired. URL-level integration tests
+              run on every build. Synthetic CWV monitoring is in place from day one,
+              not post-launch. Redirect testing is a required gate before any URL
+              structure change goes live.
             </p>
           </div>
         </div>
@@ -436,23 +456,23 @@
           <div class="risk-header">
             <div class="risk-number risk-high">02</div>
             <div>
-              <div class="risk-title">Design system drift across two rendering strategies</div>
+              <div class="risk-title">Design system drift across two surfaces</div>
               <div class="risk-severity high">High</div>
             </div>
           </div>
           <div class="prose">
             <p>
-              Two surfaces with different tech stacks can diverge visually over time.
-              What starts as one design language gradually becomes two — buttons that are
-              subtly different, spacing that doesn't match, typography that's inconsistent.
-              This compounds with every slice until fixing it requires a cross-team
-              coordination effort.
+              Two surfaces, potentially different rendering strategies, components
+              shipped at different cadences — the design language diverges gradually
+              until fixing it requires cross-team coordination. This compounds with
+              every slice.
             </p>
             <p>
               <strong>Mitigation:</strong> Shared component library consumed by both
-              surfaces. Visual regression tests (e.g. Chromatic) that catch visual
-              changes before they're merged. Design tokens managed centrally so that a
-              colour or spacing change propagates everywhere simultaneously.
+              surfaces. Visual regression tests (Chromatic or equivalent) catching
+              visual changes before merge. Design tokens managed centrally — a colour
+              or spacing change propagates everywhere simultaneously rather than being
+              patched in two places at different times.
             </p>
           </div>
         </div>
@@ -467,16 +487,15 @@
           </div>
           <div class="prose">
             <p>
-              If the public site uses ISR with a 5-minute revalidation window, an agent
-              who edits a listing won't see it live for up to 5 minutes. For agents who
-              expect to click Save and see the change live immediately, this is a
-              frustration point that erodes trust in the system.
+              If the public site uses ISR with a 5-minute revalidation window, agents
+              who save a listing won't see it live for up to 5 minutes. For agents
+              expecting near-real-time publication, this erodes trust in the system.
             </p>
             <p>
               <strong>Mitigation:</strong> On-demand ISR triggered by the portal's save
-              action, giving near-real-time public updates for any explicit save. A
-              "preview" URL in the portal that bypasses the CDN cache, so agents can
-              verify their changes against a live rendering before the public page updates.
+              action gives near-real-time public updates for any explicit save. A
+              "preview" URL in the portal that bypasses the CDN cache lets agents
+              verify their changes before the public page updates.
             </p>
           </div>
         </div>
@@ -491,21 +510,19 @@
           </div>
           <div class="prose">
             <p>
-              Agents use the portal daily for professional workflows. Data loss or
-              inconsistency — losing a partially-edited listing description, or having two
-              agents overwrite each other's changes — is a real business problem. Unlike
-              the public site where a slow page is an annoyance, a portal failure costs
-              agents time and erodes their trust in the platform.
+              Agents use the portal for professional workflows. A lost listing draft
+              or an overwritten concurrent edit is a real business problem, not a UX
+              inconvenience. Unlike the public site where a slow page is an annoyance,
+              a portal data-loss incident damages trust permanently.
             </p>
             <p>
-              <strong>Mitigation:</strong> Optimistic UI updates with clear rollback states.
-              Auto-save with visible status indicators (Saving… / Saved / Failed — retry).
-              Conflict detection for concurrent edits on the same listing. Thorough
-              offline/reconnection handling so a network blip doesn't lose draft content.
+              <strong>Mitigation:</strong> Optimistic UI with clear rollback states.
+              Auto-save with visible status indicators. Conflict detection for concurrent
+              edits. Resilient offline/reconnection handling so a network interruption
+              doesn't lose draft content.
             </p>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -513,7 +530,7 @@
     <footer>
       <div class="footer-inner">
         <div class="footer-text">
-          Built in Svelte 5 + Vite + Tailwind CSS v4 ·
+          Built with Svelte 5, Vite, and Tailwind CSS v4 ·
           <a href="https://github.com/moizp/realestate-test" target="_blank" rel="noopener noreferrer">
             Source on GitHub ↗
           </a>
@@ -526,33 +543,34 @@
 
 <style>
   /* ── Layout ── */
-  main {
-    margin-left: 248px;
-    min-height: 100vh;
-  }
+  main { margin-left: 248px; min-height: 100vh; }
 
   .content {
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 2.5rem 4rem;
+    padding: 0 2.5rem 5rem;
   }
 
   @media (max-width: 1024px) {
     main { margin-left: 0; padding-top: 44px; }
-    .content { padding: 0 1.25rem 3rem; }
+    .content { padding: 0 1.25rem 3.5rem; }
   }
 
   /* ── Header ── */
   header {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     padding: 4rem 0 3.5rem;
-    margin-bottom: 0;
   }
 
   .header-inner {
     max-width: 800px;
     margin: 0 auto;
     padding: 0 2.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    header { padding: 2.5rem 0 2rem; }
+    .header-inner { padding: 0 1.25rem; }
   }
 
   .header-eyebrow {
@@ -573,9 +591,7 @@
     margin: 0 0 1.25rem;
   }
 
-  h1 span {
-    color: #94a3b8;
-  }
+  h1 span { color: #94a3b8; }
 
   .header-sub {
     font-size: 0.95rem;
@@ -590,8 +606,6 @@
     padding: 3.5rem 0;
     border-bottom: 1px solid #f1f5f9;
   }
-
-  section:last-of-type { border-bottom: none; }
 
   .section-label {
     font-size: 0.68rem;
@@ -634,6 +648,22 @@
     line-height: 1.3;
   }
 
+  /* ── Prose ── */
+  .prose p {
+    color: #374151;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    font-size: 0.9375rem;
+  }
+
+  .prose p:last-child { margin-bottom: 0; }
+
+  .prose strong { color: #0f172a; font-weight: 600; }
+
+  .prose em { font-style: italic; color: #374151; }
+
+  .lead-text p { font-size: 1rem; }
+
   /* ── POV grid ── */
   .pov-grid {
     display: grid;
@@ -642,23 +672,16 @@
     margin-top: 1.75rem;
   }
 
-  @media (max-width: 768px) {
-    .pov-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 768px) { .pov-grid { grid-template-columns: 1fr; } }
 
   .pov-card {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 0.75rem;
-    padding: 1.25rem 1.25rem 1.25rem;
+    padding: 1.25rem;
   }
 
-  .pov-icon {
-    font-size: 1.1rem;
-    color: #0d9488;
-    margin-bottom: 0.6rem;
-    font-weight: 300;
-  }
+  .pov-icon { font-size: 1.1rem; color: #0d9488; margin-bottom: 0.6rem; }
 
   .pov-card h3 {
     font-size: 0.875rem;
@@ -674,7 +697,7 @@
     margin: 0;
   }
 
-  /* ── Table section ── */
+  /* ── Tables ── */
   .table-container { margin: 1.75rem 0 1.25rem; }
 
   .table-insight {
@@ -688,12 +711,7 @@
     margin-top: 1.25rem;
   }
 
-  .insight-icon {
-    color: #16a34a;
-    font-size: 1rem;
-    margin-top: 0.05rem;
-    flex-shrink: 0;
-  }
+  .insight-icon { color: #16a34a; font-size: 1rem; margin-top: 0.05rem; flex-shrink: 0; }
 
   .table-insight p {
     font-size: 0.85rem;
@@ -710,24 +728,11 @@
     margin: 1.75rem 0;
   }
 
-  @media (max-width: 640px) {
-    .arch-split { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 640px) { .arch-split { grid-template-columns: 1fr; } }
 
-  .arch-card {
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-  }
-
-  .arch-card.public {
-    background: #f0fdfa;
-    border: 1px solid #99f6e4;
-  }
-
-  .arch-card.portal {
-    background: #f5f3ff;
-    border: 1px solid #ddd6fe;
-  }
+  .arch-card { border-radius: 0.75rem; padding: 1.5rem; }
+  .arch-card.public { background: #f0fdfa; border: 1px solid #99f6e4; }
+  .arch-card.portal { background: #f5f3ff; border: 1px solid #ddd6fe; }
 
   .arch-card-label {
     font-size: 0.7rem;
@@ -738,36 +743,16 @@
     margin-bottom: 0.4rem;
   }
 
-  .arch-card-strategy {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
+  .arch-card-strategy { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
   .arch-card.public .arch-card-strategy { color: #0f766e; }
   .arch-card.portal .arch-card-strategy { color: #6d28d9; }
 
-  .arch-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .arch-card li {
-    font-size: 0.82rem;
-    color: #374151;
-    padding-left: 1rem;
-    position: relative;
-    line-height: 1.5;
-  }
-
+  .arch-card ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .arch-card li { font-size: 0.82rem; color: #374151; padding-left: 1rem; position: relative; line-height: 1.5; }
   .arch-card.public li::before { content: '–'; position: absolute; left: 0; color: #0d9488; font-weight: 700; }
   .arch-card.portal li::before { content: '–'; position: absolute; left: 0; color: #7c3aed; font-weight: 700; }
 
-  /* ── Split callout ── */
+  /* ── Split callout (rendering) ── */
   .split-callout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -775,24 +760,11 @@
     margin: 1.75rem 0;
   }
 
-  @media (max-width: 640px) {
-    .split-callout { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 640px) { .split-callout { grid-template-columns: 1fr; } }
 
-  .callout-block {
-    border-radius: 0.75rem;
-    padding: 1.25rem;
-  }
-
-  .callout-block.high-change {
-    background: #fff7ed;
-    border: 1px solid #fed7aa;
-  }
-
-  .callout-block.low-change {
-    background: #f0f9ff;
-    border: 1px solid #bae6fd;
-  }
+  .callout-block { border-radius: 0.75rem; padding: 1.25rem; }
+  .callout-block.high-change { background: #fff7ed; border: 1px solid #fed7aa; }
+  .callout-block.low-change { background: #f0f9ff; border: 1px solid #bae6fd; }
 
   .callout-tag {
     font-size: 0.65rem;
@@ -805,19 +777,9 @@
   .high-change .callout-tag { color: #ea580c; }
   .low-change .callout-tag { color: #0284c7; }
 
-  .callout-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #0f172a;
-    margin-bottom: 0.5rem;
-  }
+  .callout-title { font-size: 0.9rem; font-weight: 600; color: #0f172a; margin-bottom: 0.5rem; }
 
-  .callout-block p {
-    font-size: 0.82rem;
-    color: #64748b;
-    line-height: 1.55;
-    margin-bottom: 0.75rem;
-  }
+  .callout-block p { font-size: 0.82rem; color: #64748b; line-height: 1.55; margin-bottom: 0.75rem; }
 
   .callout-strategy {
     font-size: 0.78rem;
@@ -830,128 +792,201 @@
   .high-change .callout-strategy { background: #ffedd5; color: #9a3412; }
   .low-change .callout-strategy { background: #e0f2fe; color: #0c4a6e; }
 
-  /* ── Data flow diagram ── */
-  .data-flow {
+  /* ── Migration: risks preview ── */
+  .risks-preview {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
+    flex-direction: column;
+    gap: 0;
     margin: 1.75rem 0;
-    padding: 1.5rem;
-    background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 0.75rem;
-    flex-wrap: wrap;
+    overflow: hidden;
   }
 
-  .flow-node {
-    text-align: center;
-    padding: 0.875rem 1.25rem;
-    border-radius: 0.625rem;
-    min-width: 120px;
+  .risk-preview-item {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    align-items: flex-start;
   }
 
-  .flow-node.write { background: #f5f3ff; border: 1px solid #ddd6fe; }
-  .flow-node.store { background: #0f172a; color: white; }
-  .flow-node.read { background: #f0fdfa; border: 1px solid #99f6e4; }
+  .risk-preview-item:last-child { border-bottom: none; }
 
-  .flow-label { font-size: 0.875rem; font-weight: 700; }
-  .flow-sub { font-size: 0.7rem; margin-top: 0.2rem; opacity: 0.7; }
-  .flow-node.store .flow-label { color: white; }
-  .flow-node.store .flow-sub { color: #94a3b8; }
-  .flow-node.write .flow-label { color: #6d28d9; }
-  .flow-node.write .flow-sub { color: #7c3aed; }
-  .flow-node.read .flow-label { color: #0f766e; }
-  .flow-node.read .flow-sub { color: #0d9488; }
-
-  .flow-arrow { font-size: 1.25rem; color: #94a3b8; }
-
-  /* ── Three-col approach ── */
-  .three-col {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin: 1.75rem 0;
+  .risk-preview-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #e2e8f0;
+    letter-spacing: -0.04em;
+    flex-shrink: 0;
+    width: 2rem;
+    line-height: 1.2;
   }
 
-  @media (max-width: 640px) {
-    .three-col { grid-template-columns: 1fr; }
-  }
-
-  .approach-card {
-    border-radius: 0.75rem;
-    padding: 1.1rem 1.1rem 1.1rem;
-    font-size: 0.82rem;
-    color: #374151;
-    line-height: 1.6;
-  }
-
-  .approach-card.bad { background: #fafafa; border: 1px solid #e5e7eb; }
-  .approach-card.good { background: #f0fdfa; border: 1px solid #99f6e4; }
-
-  .approach-label {
-    font-size: 0.78rem;
+  .risk-preview-title {
+    font-size: 0.875rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
     color: #0f172a;
+    margin-bottom: 0.4rem;
   }
 
-  .approach-card p { margin: 0; }
-
-  code {
-    font-family: ui-monospace, Consolas, monospace;
-    font-size: 0.82em;
-    background: #f1f5f9;
-    padding: 0.15em 0.4em;
-    border-radius: 0.25rem;
-    color: #0f172a;
+  .risk-preview-item p {
+    font-size: 0.825rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
   }
 
-  /* ── DevEx callout ── */
-  .devex-callout {
+  /* ── Section divider ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2.5rem 0 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+  }
+
+  /* ── Web Components explainer ── */
+  .wc-explainer {
     background: #0f172a;
     border-radius: 0.75rem;
     padding: 1.5rem;
     margin: 1.75rem 0;
   }
 
-  .devex-title {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #0d9488;
-    margin-bottom: 1rem;
+  .wc-explainer-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.01em;
   }
 
-  .devex-grid {
+  .wc-badge {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    background: rgba(13, 148, 136, 0.2);
+    color: #5eead4;
+  }
+
+  .wc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) { .wc-grid { grid-template-columns: 1fr; } }
+
+  .wc-feature {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 0.5rem;
+    border: 1px solid #1e293b;
+  }
+
+  .wc-feature-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin-bottom: 0.5rem;
+  }
+
+  .wc-feature p {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  code {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 0.82em;
+    background: rgba(255,255,255,0.08);
+    color: #5eead4;
+    padding: 0.1em 0.35em;
+    border-radius: 0.25rem;
+  }
+
+  /* ── Slice flow ── */
+  .slice-flow {
+    margin: 2rem 0;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    align-items: flex-start;
+    gap: 0;
   }
 
-  .devex-item {
+  .slice-step {
     display: flex;
-    gap: 0.75rem;
-    font-size: 0.825rem;
-    color: #94a3b8;
-    line-height: 1.55;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.1rem 1.25rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.625rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .devex-bullet {
+  .slice-connector {
+    padding-left: 1.65rem;
     color: #0d9488;
-    flex-shrink: 0;
+    font-size: 1.1rem;
+    line-height: 1;
+    margin: 0.2rem 0;
     font-weight: 700;
+  }
+
+  .slice-step-num {
+    width: 1.75rem;
+    height: 1.75rem;
+    background: #0d9488;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
     margin-top: 0.05rem;
   }
 
-  /* ── Risks list ── */
-  .risks-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 1.75rem;
+  .slice-step-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 0.3rem;
   }
+
+  .slice-step-content p {
+    font-size: 0.82rem;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ── Risks ── */
+  .risks-list { display: flex; flex-direction: column; gap: 0; margin-top: 1.75rem; }
 
   .risk-item {
     padding: 1.75rem 0;
@@ -980,12 +1015,7 @@
   .risk-high { color: #ea580c; }
   .risk-medium { color: #d97706; }
 
-  .risk-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #0f172a;
-    line-height: 1.3;
-  }
+  .risk-title { font-size: 1rem; font-weight: 700; color: #0f172a; line-height: 1.3; }
 
   .risk-severity {
     display: inline-block;
@@ -1002,32 +1032,7 @@
   .risk-severity.high { background: #ffedd5; color: #ea580c; }
   .risk-severity.medium { background: #fef9c3; color: #a16207; }
 
-  /* ── Placeholder note ── */
-  .placeholder-note {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-    margin-top: 1.5rem;
-    padding: 0.875rem 1rem;
-    background: #fefce8;
-    border: 1px dashed #fbbf24;
-    border-radius: 0.5rem;
-    font-size: 0.82rem;
-    color: #92400e;
-    line-height: 1.55;
-  }
-
-  .placeholder-icon {
-    font-size: 0.875rem;
-    flex-shrink: 0;
-    margin-top: 0.05rem;
-    color: #d97706;
-  }
-
-  /* ── Lead text ── */
-  .lead-text p {
-    font-size: 1rem;
-  }
+  .risk-item .prose p { font-size: 0.875rem; }
 
   /* ── Footer ── */
   footer {
@@ -1036,27 +1041,9 @@
     margin-top: 1rem;
   }
 
-  .footer-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 2.5rem;
-  }
+  .footer-inner { max-width: 800px; margin: 0 auto; }
 
-  .footer-text {
-    font-size: 0.78rem;
-    color: #94a3b8;
-  }
-
-  .footer-text a {
-    color: #0d9488;
-    text-decoration: none;
-  }
-
+  .footer-text { font-size: 0.78rem; color: #94a3b8; }
+  .footer-text a { color: #0d9488; text-decoration: none; }
   .footer-text a:hover { text-decoration: underline; }
-
-  @media (max-width: 1024px) {
-    .footer-inner { padding: 0 1.25rem; }
-    header { padding: 2.5rem 0 2rem; }
-    .header-inner { padding: 0 1.25rem; }
-  }
 </style>
