@@ -38,33 +38,64 @@
         Platform Architecture<br /><span class="text-slate-400">realestate.co.nz</span>
       </h1>
       <p class="m-0 max-w-130 text-[0.95rem] leading-[1.65] text-slate-500">
-        A response to the exercise brief — presented as an interactive page rather than a document,
-        because a front-end lead should ship things that reflect the craft they're bringing to the
-        role.
+        Lead Front-End Engineer technical exercise response. Built as an interactive page rather than
+        a document.
       </p>
     </div>
   </header>
 
   <div class="mx-auto max-w-800px px-10 pb-20 max-lg:px-5">
     <!-- ══════════════════════════════════════
-         01 · OVERVIEW
+         00 · INTRODUCTION
     ══════════════════════════════════════ -->
-    <section id="overview" class="border-b border-slate-100 py-14">
+    <section id="intro" class="border-b border-slate-100 py-14">
       <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        01 · Overview
+        00 · Introduction
       </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Point of view
+        What's in this response
       </h2>
-      <p class="mb-0 text-[1rem] leading-[1.75] text-slate-600">
-        My response is shaped by three convictions. I'd rather state them upfront than let them
-        surface implicitly through the technical choices.
+      <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
+        The brief asked for an architecture proposal covering two surfaces: a public listings site and
+        an agent portal. This response works through that problem in layers — from mapping the two
+        apps, to the architectural conclusions, to three areas I've gone deeper on.
       </p>
 
+      <div class="flex flex-col divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden">
+        {#each [
+          { label: '01 · Point of View', desc: 'Three principles that shape every decision in this response: vertical slices over full rebuilds, Web Components as the migration vehicle, and DevEx as a compounding investment.' },
+          { label: '02 · The Two Surfaces', desc: 'A parameter-by-parameter comparison of the public site and portal — session model, performance profile, SEO needs, AI roadmap. Each row maps to an architectural decision.' },
+          { label: '03 · Analysis', desc: 'Technical dimensions that drive the architecture: security, rendering strategy, component library, PWA potential, SEO/AEO, and team structure.' },
+          { label: '04 · Architecture', desc: 'The two-app conclusion — SSR + tiered ISR for the public site, CSR/SPA for the portal — and the shared content model that connects them.' },
+          { label: '↳ Rendering Strategy', desc: 'Why the public site needs two ISR cache tiers (not one), and how on-demand invalidation keeps portal saves and public listings in sync.' },
+          { label: '↳ Migration Strategy', desc: 'The case against a full rebuild. How Custom Web Components enable feature-by-feature migration that deploys into both the legacy codebase and the new one simultaneously.' },
+          { label: '↳ Risks', desc: 'Four risks to name before work starts: SEO regression, design system drift, cache/edit consistency, and portal data loss.' },
+        ] as item (item.label)}
+          <div class="flex gap-4 px-5 py-4">
+            <div class="w-44 shrink-0 text-[0.78rem] font-semibold text-slate-900">{item.label}</div>
+            <div class="text-[0.82rem] leading-relaxed text-slate-500">{item.desc}</div>
+          </div>
+        {/each}
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         01 · OVERVIEW
+    ══════════════════════════════════════ -->
+    <section id="overview" class="border-b border-slate-100 py-14">
+      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
+        01 · Point of View
+      </div>
+      <h2
+        class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
+      >
+        Three principles
+      </h2>
+
       <div class="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {#each [{ icon: '⟳', title: 'Vertical slices over full rebuilds', body: 'Total platform rewrites introduce compounding risk across security, UI, and business logic simultaneously. Rebuilding end-to-end feature slices — one at a time, deployed and measured — de-risks the migration and delivers value from day one rather than from launch day.' }, { icon: '⬡', title: 'Web Components as the migration vehicle', body: 'New features built as Custom Web Components are framework-agnostic and deploy into both the legacy codebase and the new one simultaneously. This is the mechanism that makes gradual migration viable — not a theoretical pattern but a practical deployment strategy.' }, { icon: '◈', title: 'DevEx is a strategic multiplier', body: "Shared TypeScript types, enforced CI gates, a well-governed component library, and fast local dev loops don't slow teams down — they compound. Investment in engineering fundamentals at the start makes every subsequent slice faster and safer to ship." }] as card (card.title)}
+        {#each [{ icon: '⟳', title: 'Vertical slices over full rebuilds', body: 'Full rebuilds introduce simultaneous risk across security, UI, and business logic. Rebuilding feature by feature — deployed and measured each time — keeps risk contained and ships value before the migration is complete.' }, { icon: '⬡', title: 'Web Components as the migration vehicle', body: 'Custom Web Components are framework-agnostic and drop into any codebase. A new feature can deploy into the legacy app and the new app simultaneously — no big-bang cutover required.' }, { icon: '◈', title: 'DevEx compounds', body: 'Shared types, enforced CI gates, and a governed component library pay forward. Each slice ships faster than the last because the infrastructure already exists.' }] as card (card.title)}
           <div class="rounded-xl border border-slate-200 bg-slate-50 p-5">
             <div class="mb-2 text-[1.1rem] text-teal-600">{card.icon}</div>
             <h3 class="m-0 mb-2 text-[0.875rem] font-semibold text-slate-900">{card.title}</h3>
@@ -84,12 +115,11 @@
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Mapping the problem space
+        The two surfaces
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Before deciding anything about architecture, the brief needs translating into the dimensions
-        that actually drive technical decisions. The table below is that translation — each row is a
-        parameter that will later determine a specific architectural choice.
+        The two apps have different session models, performance requirements, and content
+        characteristics. Each row below maps to a specific architectural decision.
       </p>
       <ComparisonTable />
     </section>
@@ -107,9 +137,7 @@
         Technical dimensions
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
-        With the session model and content characteristics mapped, the next step is to analyse the
-        specific technical dimensions that will shape the architecture. Each row below drives one or
-        more of the decisions in the sections that follow.
+        Each dimension below drives one or more decisions in the Architecture and Deep Dives sections.
       </p>
       <AnalysisTable />
       <div
@@ -117,9 +145,8 @@
       >
         <span class="mt-0.5 shrink-0 text-green-600">↓</span>
         <p class="m-0 text-[0.85rem] leading-[1.55] text-green-800">
-          Two patterns emerge from the analysis: the surfaces are genuinely different applications
-          (not one app with two modes), and Custom Web Components appear in both columns as the
-          mechanism that connects them during migration.
+          These are two distinct applications, not one app with two modes. Custom Web Components
+          appear in both columns as the connective tissue during migration.
         </p>
       </div>
     </section>
@@ -137,10 +164,9 @@
         Two apps, one content model
       </h2>
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The analysis table points to a clear architectural fork. The wrong move is to pick one
-        rendering strategy and one framework and force both surfaces into it — that either
-        over-engineers the portal (with SSR complexity it doesn't need) or under-serves the public
-        site (sacrificing the performance and SEO characteristics that drive business value).
+        The two surfaces need different rendering strategies. A single approach either adds SSR
+        complexity the portal doesn't need, or sacrifices the public site's SEO and performance
+        characteristics.
       </p>
 
       <div class="my-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -174,16 +200,11 @@
         </div>
       </div>
 
-      <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The frontends diverge. The content model doesn't. Both surfaces operate on the same entities
-        — listings, suburbs, agents — served through a shared API. The portal writes; the public
-        site reads. Defining that contract as shared TypeScript types, before either frontend is
-        built, is the highest-leverage early decision in the rebuild.
-      </p>
       <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Custom Web Components are the bridge. New features built as Web Components deploy into both
-        the legacy codebase and the new one simultaneously — enabling gradual migration without
-        parallel maintenance of two full codebases. The deep dive below covers this in detail.
+        Both surfaces operate on the same entities — listings, suburbs, agents — through a shared
+        API. The portal writes; the public site reads. Defining that contract as shared TypeScript
+        types before either frontend is built is the most valuable early investment. Custom Web
+        Components bridge the two during migration — see Migration Strategy.
       </p>
     </section>
 
@@ -195,11 +216,10 @@
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Where I've gone deep
+        Deep dives
       </h2>
       <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Three areas I find most important — either because the risk is highest, or because the
-        conventional approach tends to be wrong.
+        Three areas where the conventional approach is either incomplete or wrong.
       </p>
     </div>
 
@@ -211,12 +231,11 @@
         ↳ Rendering Strategy
       </div>
       <h3 class="m-0 mb-5 text-[1.2rem] font-bold tracking-tight text-slate-900">
-        Tiered freshness, not a single rendering model
+        Two ISR tiers, not one
       </h3>
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The standard answer to "SEO-critical, performance-critical" is "use SSR." That's right, but
-        incomplete. The public site's content falls into two distinct freshness categories, and
-        treating them identically wastes CDN efficiency and increases origin load.
+        Public site content has two distinct freshness profiles. A single ISR window either
+        over-revalidates suburb pages or under-serves listing updates.
       </p>
 
       <div class="my-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -255,17 +274,15 @@
       </div>
 
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        <strong class="font-semibold text-slate-900">On-demand ISR</strong> is the key mechanism. When
-        an agent saves a listing in the portal, it triggers an explicit cache invalidation for that listing's
-        public URL. The CDN serves stale content until the save event fires, then refreshes immediately.
-        This gives the performance profile of a static site with the freshness of SSR — without requiring
-        the public site to bypass the CDN on every request.
+        <strong class="font-semibold text-slate-900">On-demand ISR</strong> closes the gap. When
+        an agent saves a listing, it triggers explicit cache invalidation for that listing's public
+        URL. The CDN serves stale content until the save fires, then refreshes immediately — static
+        performance with SSR freshness, no CDN bypass required.
       </p>
       <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
-        <strong class="font-semibold text-slate-900">The portal doesn't need any of this.</strong> Sessions
-        are warm and authenticated. A well-built SPA with optimistic UI updates will feel faster to an
-        agent editing a listing than an SSR equivalent with the same backend latency. SSR on the portal
-        would be complexity for no user benefit.
+        <strong class="font-semibold text-slate-900">The portal needs none of this.</strong> Sessions
+        are warm and authenticated. A SPA with optimistic UI will feel faster than an SSR equivalent
+        at the same backend latency. SSR on the portal is complexity with no user benefit.
       </p>
     </section>
 
@@ -277,16 +294,14 @@
         ↳ Migration Strategy
       </div>
       <h3 class="m-0 mb-5 text-[1.2rem] font-bold tracking-tight text-slate-900">
-        The case against a full rebuild
+        Against full rebuilds
       </h3>
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        A total platform rewrite is the most common wrong answer to "our platform needs rebuilding."
-        The instinct makes sense — start fresh, do it right — but full rebuilds introduce three
-        categories of risk simultaneously:
+        Full rebuilds introduce three failure modes simultaneously:
       </p>
 
       <div class="my-7 overflow-hidden rounded-xl border border-slate-200">
-        {#each [{ n: '01', title: 'Security surface explodes', body: "Every line of new code is a potential vulnerability. A full rebuild means a full security audit at launch, under time pressure, on a codebase that hasn't been hardened by production exposure. The legacy app has years of accumulated security patches; the rewrite starts from zero." }, { n: '02', title: 'UI regression is inevitable', body: 'Years of responsive layout fixes, browser compatibility workarounds, and edge-case handling live in the old code, often undocumented. A rewrite rediscovers all of them in production, at scale, under user pressure, with no quick rollback path.' }, { n: '03', title: 'Business logic is poorly documented', body: "Pricing edge cases, listing validation rules, agent permission hierarchies — these are rarely in specs. They're in the code, often discovered only when a rewrite gets them wrong. A full rewrite re-discovers them in production rather than in a test environment." }] as risk, i (risk.n)}
+        {#each [{ n: '01', title: 'Security surface resets to zero', body: "The legacy app has years of hardened patches. The rewrite launches unproven, under time pressure, requiring a full audit at the worst possible moment." }, { n: '02', title: 'UI regression at scale', body: 'Responsive fixes, browser workarounds, and layout edge cases accumulate in old code without documentation. A rewrite rediscovers them in production with no quick rollback.' }, { n: '03', title: 'Business logic lives in the code', body: "Validation rules, permission hierarchies, pricing edge cases — these aren't in specs. They're discovered when the rewrite gets them wrong in production." }] as risk, i (risk.n)}
           <div class="flex items-start gap-5 px-6 py-5 {i < 2 ? 'border-b border-slate-100' : ''}">
             <div
               class="w-8 shrink-0 text-[1.5rem] font-extrabold leading-snug tracking-tight text-slate-200"
@@ -311,9 +326,8 @@
       </div>
 
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Rather than rebuilding the platform all at once, the proposal is to rebuild it
-        <em>feature by feature</em>, deploying each new feature as a Custom Web Component that works
-        in both the legacy codebase and the new one.
+        Rebuild <em>feature by feature</em>. Each new feature ships as a Custom Web Component that
+        runs in the legacy codebase and the new one simultaneously.
       </p>
 
       <!-- Web Components explainer -->
@@ -329,7 +343,7 @@
           Why this primitive specifically
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {#each [{ title: 'Framework-agnostic', body: 'A Svelte component compiled as a Custom Web Component drops into any environment — legacy React, legacy vanilla JS, new Svelte app. No adapter needed.', code: "customElements.define('rea-search', SearchComponent)" }, { title: 'Self-contained', body: 'Each component owns its logic, its styles (Shadow DOM optional), and its tests. It can be developed, reviewed, and deployed independently of the surrounding codebase.', code: null }, { title: 'Zero-risk deployment', body: 'Drop the new component into the legacy app alongside the old implementation. Run both in production. Validate. Remove the legacy code.', code: '<rea-search-filters />' }, { title: 'Same component, two hosts', body: 'The identical Web Component powers the old platform during migration and the new platform after. No duplication of effort — you build a feature once and it ships everywhere.', code: null }] as feat (feat.title)}
+          {#each [{ title: 'Framework-agnostic', body: 'Compiles to a standard custom element that drops into any environment — legacy React, vanilla JS, new Svelte app.', code: "customElements.define('rea-search', SearchComponent)" }, { title: 'Self-contained', body: 'Owns its logic, styles (Shadow DOM optional), and tests. Developed and deployed independently of the surrounding codebase.', code: null }, { title: 'Side-by-side deployment', body: 'Ships into the legacy app alongside the old implementation. Validate in production. Remove the old code once stable.', code: '<rea-search-filters />' }, { title: 'One component, two hosts', body: 'The same component runs in the legacy codebase during migration and in the new codebase after. Build once, ship everywhere.', code: null }] as feat (feat.title)}
             <div class="rounded-lg border border-slate-800 bg-white/4 p-4">
               <div class="mb-2 text-[0.82rem] font-semibold text-slate-100">{feat.title}</div>
               <p class="m-0 text-[0.8rem] leading-relaxed text-slate-400">
@@ -345,14 +359,13 @@
 
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
         This is the <strong class="font-semibold text-slate-900">strangler fig pattern</strong> applied
-        to the frontend: new code wraps and gradually replaces the old, without requiring the old system
-        to change around it, and without a cutover moment where everything has to work simultaneously
-        for the first time.
+        to the frontend — new code gradually replaces old, with no cutover moment where everything
+        has to work simultaneously for the first time.
       </p>
 
       <!-- Slice flow -->
       <div class="my-8 flex flex-col">
-        {#each [{ n: 1, title: 'Pick the highest-value slice', body: 'Property search filters, listing creation flow, or suburb detail page — whichever is highest-traffic or highest-pain.' }, { n: 2, title: 'Build end-to-end as a Web Component', body: 'TypeScript types → component → tests → API contract. The full slice, in isolation.' }, { n: 3, title: 'Deploy into the legacy app', body: 'Drop the Web Component into the old codebase. Run it in production alongside or instead of the legacy equivalent. Validate with real traffic.' }, { n: 4, title: 'Retire the legacy code for that feature', body: 'Once the new component is validated, remove the old implementation. The platform is incrementally newer with each slice.' }, { n: 5, title: 'Repeat — each slice is faster than the last', body: 'The shared component library, shared types, and established patterns mean the second slice costs less than the first, and the tenth costs less than the second.' }] as step, i (step.n)}
+        {#each [{ n: 1, title: 'Pick the highest-value slice', body: 'Search filters, listing creation, suburb detail — whichever is highest-traffic or highest-pain.' }, { n: 2, title: 'Build end-to-end as a Web Component', body: 'TypeScript types → component → tests → API contract. Full slice, in isolation.' }, { n: 3, title: 'Deploy into the legacy app', body: 'Run the new component in production alongside the old implementation. Validate with real traffic.' }, { n: 4, title: 'Remove the legacy implementation', body: 'Once validated, delete the old code. The platform is now incrementally newer.' }, { n: 5, title: 'Repeat', body: 'Each slice is cheaper than the last. The component library, shared types, and patterns already exist.' }] as step, i (step.n)}
           <div
             class="flex items-start gap-4 rounded-[0.625rem] border border-slate-200 bg-slate-50 px-5 py-[1.1rem]"
           >
@@ -375,12 +388,9 @@
       </div>
 
       <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
-        <strong class="font-semibold text-slate-900"
-          >What needs to exist before the first slice.</strong
-        > The shared design system (tokens, base components) and the shared TypeScript content types need
-        to be established first. Not complete — they grow with each slice — but stable enough that the
-        first slice isn't making foundational decisions that the second slice has to undo. This pre-work
-        is the only upfront investment before value starts shipping.
+        <strong class="font-semibold text-slate-900">Before the first slice:</strong> shared design
+        tokens and shared TypeScript content types. Not complete — they grow with each slice — but
+        stable enough that slice 2 doesn't undo slice 1's foundational decisions.
       </p>
     </section>
 
@@ -392,16 +402,15 @@
         ↳ Risks
       </div>
       <h3 class="m-0 mb-5 text-[1.2rem] font-bold tracking-tight text-slate-900">
-        Risks worth naming at the start
+        Risks to name upfront
       </h3>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
-        These are the risks I'd surface at project kickoff, not mid-rebuild. The vertical slice
-        approach mitigates several of them structurally — the ones below are the residual risks that
-        still need explicit management.
+        The vertical slice approach mitigates some of these structurally. The ones below still need
+        explicit management regardless of approach.
       </p>
 
       <div class="flex flex-col">
-        {#each [{ n: '01', title: 'SEO regression during migration', severity: 'Critical', severityClass: 'bg-red-100 text-red-600', numClass: 'text-red-400', body: 'Organic search is a primary acquisition channel. A 10% ranking drop during a migration is a direct, measurable revenue loss — not a technical inconvenience. The specific risks are URL structure changes that break link equity, SSR misconfiguration that serves crawlers thin or empty content, canonical URL errors during parallel serving, and Core Web Vitals regression.', mitigation: 'The vertical slice model helps here — each slice migrates one URL pattern at a time, with performance baselines established before the legacy route is retired. URL-level integration tests run on every build. Synthetic CWV monitoring is in place from day one, not post-launch. Redirect testing is a required gate before any URL structure change goes live.' }, { n: '02', title: 'Design system drift across two surfaces', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Two surfaces, potentially different rendering strategies, components shipped at different cadences — the design language diverges gradually until fixing it requires cross-team coordination. This compounds with every slice.', mitigation: 'Shared component library consumed by both surfaces. Visual regression tests (Chromatic or equivalent) catching visual changes before merge. Design tokens managed centrally — a colour or spacing change propagates everywhere simultaneously rather than being patched in two places at different times.' }, { n: '03', title: 'Cache invalidation vs. portal edit consistency', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: "If the public site uses ISR with a 5-minute revalidation window, agents who save a listing won't see it live for up to 5 minutes. For agents expecting near-real-time publication, this erodes trust in the system.", mitigation: 'On-demand ISR triggered by the portal\'s save action gives near-real-time public updates for any explicit save. A "preview" URL in the portal that bypasses the CDN cache lets agents verify their changes before the public page updates.' }, { n: '04', title: 'Portal reliability — agents losing work', severity: 'Medium / High', severityClass: 'bg-amber-100 text-amber-700', numClass: 'text-amber-400', body: 'Agents use the portal for professional workflows. A lost listing draft or an overwritten concurrent edit is a real business problem, not a UX inconvenience. Unlike the public site where a slow page is an annoyance, a portal data-loss incident damages trust permanently.', mitigation: "Optimistic UI with clear rollback states. Auto-save with visible status indicators. Conflict detection for concurrent edits. Resilient offline/reconnection handling so a network interruption doesn't lose draft content." }] as risk (risk.n)}
+        {#each [{ n: '01', title: 'SEO regression during migration', severity: 'Critical', severityClass: 'bg-red-100 text-red-600', numClass: 'text-red-400', body: 'Organic search is a primary acquisition channel. URL structure changes break link equity, SSR misconfiguration serves crawlers empty content, and Core Web Vitals regression hits rankings directly.', mitigation: 'Vertical slices migrate one URL pattern at a time with baselines established before the legacy route is retired. URL-level integration tests on every build. Synthetic CWV monitoring from day one. Redirect testing is a required gate before any URL change ships.' }, { n: '02', title: 'Design system drift', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Two surfaces, different shipping cadences — the design language diverges until fixing it requires cross-team coordination. Compounds with every slice.', mitigation: 'Shared component library consumed by both surfaces. Visual regression tests (Chromatic or equivalent) on every PR. Design tokens managed centrally so a colour change propagates everywhere at once.' }, { n: '03', title: 'Cache vs. portal edit consistency', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: "Agents saving a listing expect to see it live immediately. A 5-minute ISR window erodes trust in the portal.", mitigation: 'On-demand ISR triggered on save gives near-real-time public updates. A preview URL in the portal bypasses the CDN cache so agents can verify changes before the public page updates.' }, { n: '04', title: 'Portal data loss', severity: 'Medium / High', severityClass: 'bg-amber-100 text-amber-700', numClass: 'text-amber-400', body: 'A lost listing draft or overwritten concurrent edit is a trust problem, not a UX inconvenience. Portal data-loss incidents are not recoverable in the same way a slow page load is.', mitigation: 'Optimistic UI with rollback states. Auto-save with visible status. Conflict detection for concurrent edits. Resilient reconnection handling so a network drop does not lose draft content.' }] as risk (risk.n)}
           <div class="border-b border-slate-100 py-7 last:border-b-0">
             <div class="mb-4 flex items-start gap-4">
               <div

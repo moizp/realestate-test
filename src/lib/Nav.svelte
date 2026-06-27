@@ -8,7 +8,8 @@
   let { activeSection }: Props = $props();
 
   const navItems: NavItem[] = [
-    { id: 'overview', label: 'Overview', depth: 0 },
+    { id: 'intro', label: 'Introduction', depth: 0 },
+    { id: 'overview', label: 'Point of View', depth: 0 },
     { id: 'surfaces', label: 'The Two Surfaces', depth: 0 },
     { id: 'analysis', label: 'Analysis', depth: 0 },
     { id: 'architecture', label: 'Architecture', depth: 0 },
