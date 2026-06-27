@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import Nav from './lib/Nav.svelte';
   import ComparisonTable from './lib/ComparisonTable.svelte';
   import AnalysisTable from './lib/AnalysisTable.svelte';
 
-  let activeSection = $state('overview');
+  let activeSection = $state('intro');
 
-  onMount(() => {
+  $effect(() => {
     const sections = document.querySelectorAll('section[id]');
     const observer = new IntersectionObserver(
       (entries) => {
