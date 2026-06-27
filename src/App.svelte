@@ -24,22 +24,13 @@
 
 <main class="lg:ml-62 min-h-screen">
   <!-- ── PAGE HEADER ── -->
-  <header
-    style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 4rem 0 3.5rem;"
-  >
-    <div class="mx-auto max-w-200 px-10 max-lg:px-5">
-      <div class="mb-5 text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-teal-600">
-        Lead Front-End Engineer · Technical Exercise
-      </div>
+  <header class=" bg-slate-300 px-10 pt-20 pb-14 max-lg:px-5">
+    <div class="mx-auto px-10 max-lg:px-5">
       <h1
-        class="m-0 mb-5 text-[clamp(1.75rem,4vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-slate-50"
+        class="text-[clamp(1.75rem,4vw,2rem)] font-bold leading-[1.15] tracking-tight text-slate-700"
       >
-        Platform Architecture<br /><span class="text-slate-400">realestate.co.nz</span>
+        Response for Lead Front-End Engineering Exercise
       </h1>
-      <p class="m-0 max-w-130 text-[0.95rem] leading-[1.65] text-slate-500">
-        Lead Front-End Engineer technical exercise response. Built as an interactive page rather
-        than a document.
-      </p>
     </div>
   </header>
 
