@@ -30,22 +30,20 @@
   aria-label="Page sections"
 >
   <div class="border-b border-slate-800 px-6 pb-6 pt-8">
-    <div class="mb-2 text-[0.65rem] font-semibold tracking-widest uppercase text-teal-600">
-      Technical Exercise
+    <div class="mb-2 font-semibold tracking-widest uppercase text-teal-400">
+      Contents
     </div>
-    <div class="text-[0.9rem] font-semibold leading-snug text-slate-50">Platform Architecture</div>
-    <div class="mt-1 text-xs text-slate-500">realestate.co.nz</div>
   </div>
 
   <ul class="flex-1 list-none py-4 m-0">
     {#each navItems as item (item.id)}
       <li class="m-0">
         <button
-          class="flex w-full cursor-pointer items-center gap-1.5 border-l-2 py-[0.45rem] text-left font-[inherit] text-[0.8rem] leading-snug transition-colors duration-150
-            {item.depth === 1 ? 'pl-8 text-[0.75rem] text-slate-500' : 'pl-6 text-slate-500'}
+          class="flex w-full cursor-pointer items-center gap-1.5 border-l-2 py-[0.45rem] text-left font-[inherit] leading-snug transition-colors duration-150
+            {item.depth === 1 ? 'pl-8 text-slate-400' : 'pl-6 text-slate-300'}
             {activeSection === item.id
-            ? 'border-l-teal-600 bg-teal-600/8 text-slate-50'
-            : 'border-l-transparent hover:bg-slate-800 hover:text-slate-300'}"
+            ? 'border-l-teal-400 bg-teal-600/8 text-slate-50'
+            : 'border-l-transparent hover:bg-slate-800 hover:text-slate-100'}"
           onclick={() => scrollTo(item.id)}
           type="button"
           aria-current={activeSection === item.id ? 'true' : undefined}
@@ -63,17 +61,6 @@
       </li>
     {/each}
   </ul>
-
-  <div class="border-t border-slate-800 px-6 py-5">
-    <a
-      href="https://github.com/moizp/realestate-test"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-[0.72rem] text-slate-600 no-underline transition-colors duration-150 hover:text-slate-400"
-    >
-      View on GitHub ↗
-    </a>
-  </div>
 </nav>
 
 <!-- Mobile top bar -->
