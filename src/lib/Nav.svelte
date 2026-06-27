@@ -30,9 +30,7 @@
   aria-label="Page sections"
 >
   <div class="border-b border-slate-800 px-6 pb-6 pt-8">
-    <div class="mb-2 font-semibold tracking-widest uppercase text-teal-400">
-      Contents
-    </div>
+    <div class="mb-2 font-semibold tracking-widest uppercase text-teal-400">Contents</div>
   </div>
 
   <ul class="flex-1 list-none py-4 m-0">

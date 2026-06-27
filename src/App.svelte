@@ -37,8 +37,8 @@
         Platform Architecture<br /><span class="text-slate-400">realestate.co.nz</span>
       </h1>
       <p class="m-0 max-w-130 text-[0.95rem] leading-[1.65] text-slate-500">
-        Lead Front-End Engineer technical exercise response. Built as an interactive page rather than
-        a document.
+        Lead Front-End Engineer technical exercise response. Built as an interactive page rather
+        than a document.
       </p>
     </div>
   </header>
@@ -57,23 +57,19 @@
         What's in this response
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The brief asked for an architecture proposal covering two surfaces: a public listings site and
-        an agent portal. This response works through that problem in layers — from mapping the two
-        apps, to the architectural conclusions, to three areas covered in depth.
+        The brief asked for an architecture proposal covering two surfaces: a public listings site
+        and an agent portal. This response works through that problem in layers — from mapping the
+        two apps, to the architectural conclusions, to three areas covered in depth.
       </p>
 
-      <div class="flex flex-col divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden">
-        {#each [
-          { label: '01 · Point of View', desc: 'Three principles that shape every decision in this response: vertical slices over full rebuilds, Web Components as the migration vehicle, and DevEx as a compounding investment.' },
-          { label: '02 · The Two Surfaces', desc: 'A parameter-by-parameter comparison of the public site and portal — session model, performance profile, SEO needs, AI roadmap. Each row maps to an architectural decision.' },
-          { label: '03 · Analysis', desc: 'Technical dimensions that drive the architecture: security, rendering strategy, component library, PWA potential, SEO/AEO, and team structure.' },
-          { label: '04 · Architecture', desc: 'The two-app conclusion — SSR + tiered ISR for the public site, CSR/SPA for the portal — and the shared content model that connects them.' },
-          { label: '↳ Rendering Strategy', desc: 'Why the public site needs two ISR cache tiers (not one), and how on-demand invalidation keeps portal saves and public listings in sync.' },
-          { label: '↳ Migration Strategy', desc: 'The case against a full rebuild. How Custom Web Components enable feature-by-feature migration that deploys into both the legacy codebase and the new one simultaneously.' },
-          { label: '↳ Risks', desc: 'Four risks to name before work starts: SEO regression, design system drift, cache/edit consistency, and portal data loss.' },
-        ] as item (item.label)}
+      <div
+        class="flex flex-col divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden"
+      >
+        {#each [{ label: '01 · Point of View', desc: 'Three principles that shape every decision in this response: vertical slices over full rebuilds, Web Components as the migration vehicle, and DevEx as a compounding investment.' }, { label: '02 · The Two Surfaces', desc: 'A parameter-by-parameter comparison of the public site and portal — session model, performance profile, SEO needs, AI roadmap. Each row maps to an architectural decision.' }, { label: '03 · Analysis', desc: 'Technical dimensions that drive the architecture: security, rendering strategy, component library, PWA potential, SEO/AEO, and team structure.' }, { label: '04 · Architecture', desc: 'The two-app conclusion — SSR + tiered ISR for the public site, CSR/SPA for the portal — and the shared content model that connects them.' }, { label: '↳ Rendering Strategy', desc: 'Why the public site needs two ISR cache tiers (not one), and how on-demand invalidation keeps portal saves and public listings in sync.' }, { label: '↳ Migration Strategy', desc: 'The case against a full rebuild. How Custom Web Components enable feature-by-feature migration that deploys into both the legacy codebase and the new one simultaneously.' }, { label: '↳ Risks', desc: 'Four risks to name before work starts: SEO regression, design system drift, cache/edit consistency, and portal data loss.' }] as item (item.label)}
           <div class="flex gap-4 px-5 py-4">
-            <div class="w-44 shrink-0 text-[0.78rem] font-semibold text-slate-900">{item.label}</div>
+            <div class="w-44 shrink-0 text-[0.78rem] font-semibold text-slate-900">
+              {item.label}
+            </div>
             <div class="text-[0.82rem] leading-relaxed text-slate-500">{item.desc}</div>
           </div>
         {/each}
@@ -136,7 +132,8 @@
         Technical dimensions
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Each dimension below drives one or more decisions in the Architecture and Deep Dives sections.
+        Each dimension below drives one or more decisions in the Architecture and Deep Dives
+        sections.
       </p>
       <AnalysisTable />
       <div
@@ -273,15 +270,15 @@
       </div>
 
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        <strong class="font-semibold text-slate-900">On-demand ISR</strong> closes the gap. When
-        an agent saves a listing, it triggers explicit cache invalidation for that listing's public
-        URL. The CDN serves stale content until the save fires, then refreshes immediately — static
-        performance with SSR freshness, no CDN bypass required.
+        <strong class="font-semibold text-slate-900">On-demand ISR</strong> closes the gap. When an agent
+        saves a listing, it triggers explicit cache invalidation for that listing's public URL. The CDN
+        serves stale content until the save fires, then refreshes immediately — static performance with
+        SSR freshness, no CDN bypass required.
       </p>
       <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
         <strong class="font-semibold text-slate-900">The portal needs none of this.</strong> Sessions
-        are warm and authenticated. A SPA with optimistic UI will feel faster than an SSR equivalent
-        at the same backend latency. SSR on the portal is complexity with no user benefit.
+        are warm and authenticated. A SPA with optimistic UI will feel faster than an SSR equivalent at
+        the same backend latency. SSR on the portal is complexity with no user benefit.
       </p>
     </section>
 
@@ -300,7 +297,7 @@
       </p>
 
       <div class="my-7 overflow-hidden rounded-xl border border-slate-200">
-        {#each [{ n: '01', title: 'Security surface resets to zero', body: "The legacy app has years of hardened patches. The rewrite launches unproven, under time pressure, requiring a full audit at the worst possible moment." }, { n: '02', title: 'UI regression at scale', body: 'Responsive fixes, browser workarounds, and layout edge cases accumulate in old code without documentation. A rewrite rediscovers them in production with no quick rollback.' }, { n: '03', title: 'Business logic lives in the code', body: "Validation rules, permission hierarchies, pricing edge cases — these aren't in specs. They're discovered when the rewrite gets them wrong in production." }] as risk, i (risk.n)}
+        {#each [{ n: '01', title: 'Security surface resets to zero', body: 'The legacy app has years of hardened patches. The rewrite launches unproven, under time pressure, requiring a full audit at the worst possible moment.' }, { n: '02', title: 'UI regression at scale', body: 'Responsive fixes, browser workarounds, and layout edge cases accumulate in old code without documentation. A rewrite rediscovers them in production with no quick rollback.' }, { n: '03', title: 'Business logic lives in the code', body: "Validation rules, permission hierarchies, pricing edge cases — these aren't in specs. They're discovered when the rewrite gets them wrong in production." }] as risk, i (risk.n)}
           <div class="flex items-start gap-5 px-6 py-5 {i < 2 ? 'border-b border-slate-100' : ''}">
             <div
               class="w-8 shrink-0 text-[1.5rem] font-extrabold leading-snug tracking-tight text-slate-200"
@@ -358,8 +355,8 @@
 
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
         This is the <strong class="font-semibold text-slate-900">strangler fig pattern</strong> applied
-        to the frontend — new code gradually replaces old, with no cutover moment where everything
-        has to work simultaneously for the first time.
+        to the frontend — new code gradually replaces old, with no cutover moment where everything has
+        to work simultaneously for the first time.
       </p>
 
       <!-- Slice flow -->
@@ -387,9 +384,9 @@
       </div>
 
       <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
-        <strong class="font-semibold text-slate-900">Before the first slice:</strong> shared design
-        tokens and shared TypeScript content types. Not complete — they grow with each slice — but
-        stable enough that slice 2 doesn't undo slice 1's foundational decisions.
+        <strong class="font-semibold text-slate-900">Before the first slice:</strong> shared design tokens
+        and shared TypeScript content types. Not complete — they grow with each slice — but stable enough
+        that slice 2 doesn't undo slice 1's foundational decisions.
       </p>
     </section>
 
@@ -409,7 +406,7 @@
       </p>
 
       <div class="flex flex-col">
-        {#each [{ n: '01', title: 'SEO regression during migration', severity: 'Critical', severityClass: 'bg-red-100 text-red-600', numClass: 'text-red-400', body: 'Organic search is a primary acquisition channel. URL structure changes break link equity, SSR misconfiguration serves crawlers empty content, and Core Web Vitals regression hits rankings directly.', mitigation: 'Vertical slices migrate one URL pattern at a time with baselines established before the legacy route is retired. URL-level integration tests on every build. Synthetic CWV monitoring from day one. Redirect testing is a required gate before any URL change ships.' }, { n: '02', title: 'Design system drift', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Two surfaces, different shipping cadences — the design language diverges until fixing it requires cross-team coordination. Compounds with every slice.', mitigation: 'Shared component library consumed by both surfaces. Visual regression tests (Chromatic or equivalent) on every PR. Design tokens managed centrally so a colour change propagates everywhere at once.' }, { n: '03', title: 'Cache vs. portal edit consistency', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: "Agents saving a listing expect to see it live immediately. A 5-minute ISR window erodes trust in the portal.", mitigation: 'On-demand ISR triggered on save gives near-real-time public updates. A preview URL in the portal bypasses the CDN cache so agents can verify changes before the public page updates.' }, { n: '04', title: 'Portal data loss', severity: 'Medium / High', severityClass: 'bg-amber-100 text-amber-700', numClass: 'text-amber-400', body: 'A lost listing draft or overwritten concurrent edit is a trust problem, not a UX inconvenience. Portal data-loss incidents are not recoverable in the same way a slow page load is.', mitigation: 'Optimistic UI with rollback states. Auto-save with visible status. Conflict detection for concurrent edits. Resilient reconnection handling so a network drop does not lose draft content.' }] as risk (risk.n)}
+        {#each [{ n: '01', title: 'SEO regression during migration', severity: 'Critical', severityClass: 'bg-red-100 text-red-600', numClass: 'text-red-400', body: 'Organic search is a primary acquisition channel. URL structure changes break link equity, SSR misconfiguration serves crawlers empty content, and Core Web Vitals regression hits rankings directly.', mitigation: 'Vertical slices migrate one URL pattern at a time with baselines established before the legacy route is retired. URL-level integration tests on every build. Synthetic CWV monitoring from day one. Redirect testing is a required gate before any URL change ships.' }, { n: '02', title: 'Design system drift', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Two surfaces, different shipping cadences — the design language diverges until fixing it requires cross-team coordination. Compounds with every slice.', mitigation: 'Shared component library consumed by both surfaces. Visual regression tests (Chromatic or equivalent) on every PR. Design tokens managed centrally so a colour change propagates everywhere at once.' }, { n: '03', title: 'Cache vs. portal edit consistency', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Agents saving a listing expect to see it live immediately. A 5-minute ISR window erodes trust in the portal.', mitigation: 'On-demand ISR triggered on save gives near-real-time public updates. A preview URL in the portal bypasses the CDN cache so agents can verify changes before the public page updates.' }, { n: '04', title: 'Portal data loss', severity: 'Medium / High', severityClass: 'bg-amber-100 text-amber-700', numClass: 'text-amber-400', body: 'A lost listing draft or overwritten concurrent edit is a trust problem, not a UX inconvenience. Portal data-loss incidents are not recoverable in the same way a slow page load is.', mitigation: 'Optimistic UI with rollback states. Auto-save with visible status. Conflict detection for concurrent edits. Resilient reconnection handling so a network drop does not lose draft content.' }] as risk (risk.n)}
           <div class="border-b border-slate-100 py-7 last:border-b-0">
             <div class="mb-4 flex items-start gap-4">
               <div
