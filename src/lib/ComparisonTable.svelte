@@ -90,7 +90,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each rows as row, i}
+      {#each rows as row, i (row.param)}
         <tr
           class="border-b border-slate-100 transition-colors duration-100 last:border-b-0
             {i % 2 === 1 ? 'bg-slate-50' : 'bg-white'} hover:bg-teal-50"

@@ -37,7 +37,7 @@
   </div>
 
   <ul class="flex-1 list-none py-4 m-0">
-    {#each navItems as item}
+    {#each navItems as item (item.id)}
       <li class="m-0">
         <button
           class="flex w-full cursor-pointer items-center gap-1.5 border-l-2 py-[0.45rem] text-left font-[inherit] text-[0.8rem] leading-snug transition-colors duration-150
@@ -84,7 +84,7 @@
   <div
     class="flex overflow-x-auto px-4 scrollbar-none [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
   >
-    {#each navItems as item}
+    {#each navItems as item (item.id)}
       <button
         class="shrink-0 cursor-pointer border-b-2 px-3 py-[0.85rem] text-[0.75rem] whitespace-nowrap font-[inherit] transition-colors duration-150
           {activeSection === item.id
