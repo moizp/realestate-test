@@ -9,13 +9,13 @@
 
   const navItems: NavItem[] = [
     { id: 'intro', label: 'Introduction', depth: 0 },
-    { id: 'overview', label: 'Point of View', depth: 0 },
     { id: 'surfaces', label: 'The Two Surfaces', depth: 0 },
     { id: 'analysis', label: 'Analysis', depth: 0 },
     { id: 'architecture', label: 'Architecture', depth: 0 },
     { id: 'rendering', label: 'Rendering Strategy', depth: 1 },
     { id: 'migration', label: 'Migration Strategy', depth: 1 },
     { id: 'risks', label: 'Risks', depth: 1 },
+    { id: 'conclusion', label: 'Conclusion', depth: 0 },
   ];
 
   function scrollTo(id: string) {

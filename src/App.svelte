@@ -65,7 +65,7 @@
       <div
         class="flex flex-col divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden"
       >
-        {#each [{ label: '01 · Point of View', desc: 'Three principles that shape every decision in this response: vertical slices over full rebuilds, Web Components as the migration vehicle, and DevEx as a compounding investment.' }, { label: '02 · The Two Surfaces', desc: 'A parameter-by-parameter comparison of the public site and portal — session model, performance profile, SEO needs, AI roadmap. Each row maps to an architectural decision.' }, { label: '03 · Analysis', desc: 'Technical dimensions that drive the architecture: security, rendering strategy, component library, PWA potential, SEO/AEO, and team structure.' }, { label: '04 · Architecture', desc: 'The two-app conclusion — SSR + tiered ISR for the public site, CSR/SPA for the portal — and the shared content model that connects them.' }, { label: '↳ Rendering Strategy', desc: 'Why the public site needs two ISR cache tiers (not one), and how on-demand invalidation keeps portal saves and public listings in sync.' }, { label: '↳ Migration Strategy', desc: 'The case against a full rebuild. How Custom Web Components enable feature-by-feature migration that deploys into both the legacy codebase and the new one simultaneously.' }, { label: '↳ Risks', desc: 'Four risks to name before work starts: SEO regression, design system drift, cache/edit consistency, and portal data loss.' }] as item (item.label)}
+        {#each [{ label: '01 · The Two Surfaces', desc: 'A parameter-by-parameter comparison of the public site and portal — session model, performance profile, SEO needs, AI roadmap. Each row maps to an architectural decision.' }, { label: '02 · Analysis', desc: 'Technical dimensions that drive the architecture: security, rendering strategy, component library, PWA potential, SEO/AEO, and team structure.' }, { label: '03 · Architecture', desc: 'The two-app conclusion — SSR + tiered ISR for the public site, CSR/SPA for the portal — and the shared content model that connects them.' }, { label: '↳ Rendering Strategy', desc: 'Why the public site needs two ISR cache tiers (not one), and how on-demand invalidation keeps portal saves and public listings in sync.' }, { label: '↳ Migration Strategy', desc: 'The case against a full rebuild. How Custom Web Components enable feature-by-feature migration that deploys into both the legacy codebase and the new one simultaneously.' }, { label: '↳ Risks', desc: 'Four risks to name before work starts: SEO regression, design system drift, cache/edit consistency, and portal data loss.' }, { label: '04 · Conclusion', desc: 'The three principles that shaped every decision in this response: vertical slices over rebuilds, Web Components as the migration vehicle, and DevEx as a compounding investment.' }] as item (item.label)}
           <div class="flex gap-4 px-5 py-4">
             <div class="w-44 shrink-0 text-[0.78rem] font-semibold text-slate-900">
               {item.label}
@@ -77,35 +77,11 @@
     </section>
 
     <!-- ══════════════════════════════════════
-         01 · OVERVIEW
-    ══════════════════════════════════════ -->
-    <section id="overview" class="border-b border-slate-100 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        01 · Point of View
-      </div>
-      <h2
-        class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
-      >
-        Three principles
-      </h2>
-
-      <div class="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {#each [{ icon: '⟳', title: 'Vertical slices over full rebuilds', body: 'Full rebuilds introduce simultaneous risk across security, UI, and business logic. Rebuilding feature by feature — deployed and measured each time — keeps risk contained and ships value before the migration is complete.' }, { icon: '⬡', title: 'Web Components as the migration vehicle', body: 'Custom Web Components are framework-agnostic and drop into any codebase. A new feature can deploy into the legacy app and the new app simultaneously — no big-bang cutover required.' }, { icon: '◈', title: 'DevEx compounds', body: 'Shared types, enforced CI gates, and a governed component library pay forward. Each slice ships faster than the last because the infrastructure already exists.' }] as card (card.title)}
-          <div class="rounded-xl border border-slate-200 bg-slate-50 p-5">
-            <div class="mb-2 text-[1.1rem] text-teal-600">{card.icon}</div>
-            <h3 class="m-0 mb-2 text-[0.875rem] font-semibold text-slate-900">{card.title}</h3>
-            <p class="m-0 text-[0.825rem] leading-relaxed text-slate-500">{card.body}</p>
-          </div>
-        {/each}
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════
-         02 · THE TWO SURFACES
+         01 · THE TWO SURFACES
     ══════════════════════════════════════ -->
     <section id="surfaces" class="border-b border-slate-100 py-14">
       <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        02 · The Two Surfaces
+        01 · The Two Surfaces
       </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
@@ -124,7 +100,7 @@
     ══════════════════════════════════════ -->
     <section id="analysis" class="border-b border-slate-100 py-14">
       <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        03 · Analysis
+        02 · Analysis
       </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
@@ -152,7 +128,7 @@
     ══════════════════════════════════════ -->
     <section id="architecture" class="border-b border-slate-100 py-14">
       <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        04 · Architecture
+        03 · Architecture
       </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
@@ -207,7 +183,7 @@
     <!-- ── DEEP DIVES HEADER ── -->
     <div class="border-b border-slate-100 pb-4 pt-14">
       <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        05 · Deep Dives
+        04 · Deep Dives
       </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
@@ -430,6 +406,39 @@
               <strong class="font-semibold text-slate-900">Mitigation:</strong>
               {risk.mitigation}
             </p>
+          </div>
+        {/each}
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CONCLUSION
+    ══════════════════════════════════════ -->
+    <section id="conclusion" class="border-t border-slate-200 py-14">
+      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
+        04 · Conclusion
+      </div>
+      <h2
+        class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
+      >
+        Three principles
+      </h2>
+      <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
+        Every architectural decision in this response follows from three principles.
+      </p>
+
+      <div class="flex flex-col gap-4">
+        {#each [{ n: '01', title: 'Vertical slices over full rebuilds', body: 'Full rebuilds force all risk — security, UI regression, business logic gaps — to materialise simultaneously. Shipping end-to-end feature slices keeps risk contained, ships value early, and produces a measurable baseline after each increment.' }, { n: '02', title: 'Web Components as the migration vehicle', body: 'Custom elements are framework-agnostic and drop into any codebase. A feature runs in the legacy app and the new one simultaneously — validated with real traffic before the old implementation is removed.' }, { n: '03', title: 'DevEx compounds', body: 'Shared TypeScript types, a governed component library, and CI gates are not infrastructure for the migration — they are the migration. Each slice ships faster than the last because the tooling already exists.' }] as item (item.n)}
+          <div class="flex gap-5 rounded-xl border border-slate-200 bg-slate-50 px-6 py-5">
+            <div
+              class="w-8 shrink-0 text-[1.5rem] font-extrabold leading-none tracking-tight text-slate-200"
+            >
+              {item.n}
+            </div>
+            <div>
+              <div class="mb-2 text-[0.875rem] font-semibold text-slate-900">{item.title}</div>
+              <p class="m-0 text-[0.825rem] leading-relaxed text-slate-500">{item.body}</p>
+            </div>
           </div>
         {/each}
       </div>
