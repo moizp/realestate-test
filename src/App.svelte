@@ -60,7 +60,7 @@
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
         The brief asked for an architecture proposal covering two surfaces: a public listings site and
         an agent portal. This response works through that problem in layers — from mapping the two
-        apps, to the architectural conclusions, to three areas I've gone deeper on.
+        apps, to the architectural conclusions, to three areas covered in depth.
       </p>
 
       <div class="flex flex-col divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden">
