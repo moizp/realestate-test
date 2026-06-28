@@ -269,28 +269,28 @@
         Risks &amp; Tradeoffs
       </h2>
 
-      <div class="flex flex-col">
+      <div class="flex flex-col mx-10">
         {#each risks as risk (risk.n)}
-          <div class="border-b border-slate-100 py-7 last:border-b-0">
+          <div class="py-7">
             <div class="mb-4 flex items-start gap-4">
               <div
-                class="w-10 shrink-0 text-[1.75rem] leading-none font-extrabold tracking-tight {risk.numClass}"
+                class="w-10 shrink-0 text-[1.5rem] leading-none font-extrabold tracking-tight {risk.numClass}"
               >
                 {risk.n}
               </div>
               <div>
-                <div class="mb-1 text-[1rem] leading-snug font-bold text-slate-900">
+                <span class="mb-1 text-[1rem] leading-snug font-bold text-slate-900">
                   {risk.title}
-                </div>
+                </span>
                 <span
-                  class="inline-block rounded px-[0.45rem] py-[0.15rem] text-[0.65rem] font-bold tracking-[0.08em] uppercase {risk.severityClass}"
+                  class="inline-block rounded ml-2 px-[0.45rem] py-[0.15rem] text-[0.65rem] font-bold tracking-[0.08em] uppercase {risk.severityClass}"
                 >
                   {risk.severity}
                 </span>
               </div>
             </div>
-            <p class="mb-3 text-[0.875rem] leading-[1.75] text-slate-600">{risk.body}</p>
-            <p class="{risk.ref ? 'mb-2' : 'mb-0'} text-[0.875rem] leading-[1.75] text-slate-600">
+            <p class="mb-3 text-[0.9rem] leading-[1.75] text-slate-600">{risk.body}</p>
+            <p class="{risk.ref ? 'mb-2' : 'mb-0'} text-[0.9rem] leading-[1.75] text-slate-600">
               <strong class="font-semibold text-slate-900">Mitigation:</strong>
               {risk.mitigation}
             </p>
@@ -325,7 +325,7 @@
         class="flex flex-col mx-10 divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200"
       >
         {#each teamFactors as item (item.title)}
-          <div class="px-5 py-4 text-[0.9rem] leading-relaxed text-slate-600">
+          <div class="px-5 py-4 leading-relaxed text-slate-600">
             <span class="font-semibold text-slate-900">{item.title}:</span>
             {item.body}
           </div>
@@ -342,26 +342,26 @@
       </h2>
 
       <div class="flex flex-col gap-5">
-        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+        <p class="m-0 leading-[1.75] text-slate-600">
           <strong class="font-semibold text-slate-900">Start with foundations:</strong> shared TypeScript
           content types and UI component designs before the first slice. They don't need to be complete
           and gradually grow — later decisions build on them and undoing them is expensive.
         </p>
 
-        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+        <p class="m-0 leading-[1.75] text-slate-600">
           <strong class="font-semibold text-slate-900">Pick slices by value, not safety:</strong> a medium-complexity,
           high-traffic feature teaches the stack under real conditions and generates real user feedback.
           A trivial feature teaches nothing useful; a critical one can't afford a regression. The first
           slice sets the patterns — it should be representative.
         </p>
 
-        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+        <p class="m-0 leading-[1.75] text-slate-600">
           <strong class="font-semibold text-slate-900">Name the tradeoff early:</strong> the slice approach
           is slower to show a "new platform" than a full rebuild. The counter is that every slice ships
           to real users on the legacy codebase — progress is visible before the new platform exists.
         </p>
 
-        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+        <p class="m-0 leading-[1.75] text-slate-600">
           <strong class="font-semibold text-slate-900"
             >If Next.js / React work has already begun:</strong
           > don't stop it. The slice approach is framework-agnostic — React components can be wrapped
@@ -370,7 +370,7 @@
           boundary. The architecture holds; only the component library needs to account for both.
         </p>
 
-        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+        <p class="m-0 leading-[1.75] text-slate-600">
           <strong class="font-semibold text-slate-900">On framework choice:</strong> Svelte and Astro
           are now strong alternatives with significantly lower conceptual overhead than React. Astro specifically
           brings Island Architecture as a first-class primitive — interactive components load per island,
@@ -383,7 +383,7 @@
 
     <!-- ── FOOTER ── -->
     <footer class="mt-4 border-t border-slate-100 py-8">
-      <div class="text-[0.78rem] text-slate-400">
+      <div class="text-[0.8rem] text-slate-400">
         By Moiz Penkar ·
         <a
           href="https://github.com/moizp/realestate-test"
