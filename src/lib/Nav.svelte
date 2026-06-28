@@ -19,7 +19,22 @@
   function scrollTo(id: string) {
     const el = document.getElementById(id);
     if (!el) return;
-    window.scrollTo({ top: el.offsetTop - 16, behavior: 'smooth' });
+    const start = window.scrollY;
+    const target = el.getBoundingClientRect().top + window.scrollY - 16;
+    const distance = target - start;
+    const duration = 450;
+    let startTime: number | null = null;
+    function ease(t: number) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+    function step(ts: number) {
+      if (!startTime) startTime = ts;
+      const elapsed = ts - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, start + distance * ease(progress));
+      if (elapsed < duration) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   }
 </script>
 
