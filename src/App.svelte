@@ -24,12 +24,12 @@
 
 <main class="lg:ml-62 min-h-screen">
   <!-- ── PAGE HEADER ── -->
-  <header class=" bg-slate-300 px-10 pt-20 pb-14 max-lg:px-5">
+  <header class="bg-slate-300 px-1 pt-10 pb-10 max-lg:pt-20">
     <div class="mx-auto px-10 max-lg:px-5">
       <h1
-        class="text-[clamp(1.75rem,4vw,2rem)] font-bold leading-[1.15] tracking-tight text-slate-700"
+        class="text-[clamp(1.5rem,4vw,2rem)] font-bold leading-[1.15] tracking-tight text-slate-700"
       >
-        Response for Lead Front-End Engineering Exercise
+        Lead Front-End Engineering Exercise
       </h1>
     </div>
   </header>
@@ -438,7 +438,7 @@
     <!-- ── FOOTER ── -->
     <footer class="mt-4 border-t border-slate-100 py-8">
       <div class="text-[0.78rem] text-slate-400">
-        Built with Svelte 5, Vite, and Tailwind CSS v4 ·
+        Built with Svelte 5, Vite, and Tailwind ·
         <a
           href="https://github.com/moizp/realestate-test"
           target="_blank"
