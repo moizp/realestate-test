@@ -1,7 +1,6 @@
 <script lang="ts">
   import Nav from './lib/Nav.svelte';
   import ComparisonTable from './lib/ComparisonTable.svelte';
-  import AnalysisTable from './lib/AnalysisTable.svelte';
 
   let activeSection = $state('intro');
 
@@ -43,63 +42,36 @@
         Introduction
       </h2>
       <p class="mb-1 leading-[1.75] text-slate-600">
-        This document provides a solution to the Lead Front-End Engineering Exercise. It begins by
-        mapping the two web apps: a public listings site and an agent portal. Then it analyses the
-        two front-ends on some architectural dimensions. Next, it suggests the approach to
-        rebuilding the two front-ends, including the structure of the migration, leading the effort
-        across a team, the risks, and trade-offs. Finally, concludes with the final recommendations.
+        This document maps the two web apps, outlines the architecture decisions they drive, and
+        describes the approach to rebuilding both — covering migration strategy, team, risks, and
+        trade-offs.
       </p>
     </section>
 
-    <!-- 01 · MAPPING THE TWO APPS -->
+    <!-- 01 · THE TWO APPS -->
     <section id="surfaces" class="border-b border-slate-100 py-10">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Mapping the Two Apps
+        The Two Apps
       </h2>
       <p class="mb-7 leading-[1.75] text-slate-600">
-        The two apps have different session models, performance requirements, and content
-        characteristics. This table documents some relevant aspects of each web app.
+        The two apps differ fundamentally in session model, audience, and performance requirements.
+        Each row maps to one or more architectural decisions.
       </p>
       <ComparisonTable />
-    </section>
 
-    <!-- 03 · ANALYSIS -->
-    <section id="analysis" class="border-b border-slate-100 py-10">
-      <h2
-        class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
-      >
-        Analysis
-      </h2>
-      <p class="mb-7 leading-[1.75] text-slate-600">
-        Based on the requirements of each app, we can derive some architectural parameters that may
-        drive the design decisions. The following table compares the two apps on these parameters.
+      <p class="mt-8 mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
+        The rendering row above drives the single most consequential split in the architecture.
       </p>
-      <AnalysisTable />
-    </section>
-
-    <!-- 04 · ARCHITECTURE -->
-    <section id="architecture" class="border-b border-slate-100 py-10">
-      <h2
-        class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
-      >
-        Architecture
-      </h2>
-      <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The two surfaces need different rendering strategies. A single approach either adds SSR
-        complexity the portal doesn't need, or sacrifices the public site's SEO and performance
-        characteristics.
-      </p>
-
-      <div class="my-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div class="rounded-xl border border-teal-200 bg-teal-50 p-6">
           <div class="mb-1 text-[0.7rem] font-semibold tracking-[0.08em] text-slate-500 uppercase">
             Public Search &amp; Listings
           </div>
           <div class="mb-4 text-[1.1rem] font-bold text-teal-700">SSR + Tiered ISR</div>
           <ul class="m-0 flex list-none flex-col gap-2 p-0">
-            {#each ['Cold, unauthenticated visitors — first-load speed is business-critical', 'SEO and Core Web Vitals directly affect traffic acquisition', 'Content of mixed freshness — different caching for listings vs suburb data', 'Structured data for AI answer engines (AEO) and agent marketplaces'] as item (item)}
+            {#each ['Cold, unauthenticated visitors — first-load speed is business-critical', 'SEO and Core Web Vitals directly affect traffic acquisition', 'Mixed content freshness — different cache TTLs for listings vs suburb data', 'Structured data for AI answer engines and agent marketplaces'] as item (item)}
               <li class="flex gap-2 text-[0.82rem] leading-snug text-slate-700">
                 <span class="shrink-0 font-bold text-teal-600">–</span>
                 <span>{item}</span>
@@ -161,9 +133,6 @@
       >
         Deep Dives
       </h2>
-      <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Three areas where the conventional approach is either incomplete or wrong.
-      </p>
     </div>
 
     <!-- ══════════════════════════════════════

@@ -5,56 +5,74 @@
     {
       param: 'Primary use case',
       public:
-        'Discover and evaluate properties — filter/browse → listing detail → contact agent. Mostly accessed on mobile devices.',
-      portal:
-        'Create, edit, and manage listings efficiently and reliably. Mostly accessed on desktops/laptops.',
+        'Discover and evaluate properties — filter/browse → listing detail → contact agent. Mostly accessed on mobile.',
+      portal: 'Create, edit, and manage listings efficiently and reliably. Mostly accessed on desktop.',
     },
     {
       param: 'Typical session',
       public:
-        'Short (minutes), high frequency per visitor but low frequency per individual — many one-off or occasional visitors. Usually a single tab.',
+        'Short (minutes), low frequency per individual — many one-off or occasional visitors. Usually a single tab.',
       portal:
-        'Long (tens of minutes to hours), high frequency per user (daily, repeat), often multiple tabs open in parallel while cross-referencing listings during editing.',
+        'Long (tens of minutes to hours), daily repeat use — often multiple tabs open in parallel while cross-referencing listings.',
     },
     {
-      param: 'Content update frequency',
+      param: 'Content freshness',
       public:
         'Mixed — listing status/price/photos change often during a sale cycle; suburb stats, school zones, and agent profiles change rarely.',
-      portal:
-        "High — agents are actively editing; needs near-real-time consistency between what's saved and what's published.",
+      portal: "High — agents are actively editing; needs near-real-time consistency between what's saved and what's published.",
     },
     {
-      param: 'Performance (load & response)',
+      param: 'Rendering & performance',
       public:
-        'Critical — Core Web Vitals affect both search rankings and conversion. First-load speed matters most: often a cold, unauthenticated visitor, possibly on mobile.',
+        'Cold, unauthenticated visitors — first-load speed and Core Web Vitals directly affect traffic and conversion.',
       portal:
-        'Important but different shape — interaction responsiveness and reliability matter more than first-load speed. Sessions are warm, logged-in, and repeat.',
+        'Warm, authenticated, repeat sessions. Interaction responsiveness and state reliability matter more than first-load speed.',
     },
     {
       param: 'SEO / GEO',
       public:
-        'Critical — organic search is a primary acquisition channel. Must be crawlable/indexable and increasingly legible to AI answer engines (structured data, clean canonical URLs, fast TTFB).',
-      portal:
-        'None — authenticated, no indexing requirement. Potential requirement for onboarding new agents via search in future.',
+        'Critical — organic search is a primary acquisition channel. Must be crawlable and increasingly legible to AI answer engines (structured data, canonical URLs, fast TTFB).',
+      portal: 'None — authenticated, not publicly indexed.',
     },
     {
-      param: 'Feature roadmap (projected)',
+      param: 'Security',
+      public:
+        'Open, unauthenticated surface. XSS risk on user-generated content. CSP required for third-party embeds (maps, photo CDNs, analytics). Privacy compliance for search tracking.',
+      portal:
+        'Authenticated surface. Role-based access (agent, admin, agency owner), input validation on listing fields, audit trail for changes, session management.',
+    },
+    {
+      param: 'Custom Web Components',
+      public:
+        'Key components (search widget, listing card, map) embeddable by partner sites without API coupling. On the public site, Web Components act as client-side interactive islands within server-rendered pages — page shell and SEO metadata rendered server-side; components hydrate after load.',
+      portal:
+        'Features built as Web Components can ship into the existing EmberJS portal before the new one is ready — each feature is live in production on the old codebase first. Same component, two hosts.',
+    },
+    {
+      param: 'PWA',
+      public:
+        'Low value for anonymous visitors. Moderate for logged-in users — push notifications for saved search matches, offline access to saved listings.',
+      portal:
+        'High value. Agents work across devices and variable networks. Offline drafting, background sync, and push notifications are meaningful from day one.',
+    },
+    {
+      param: 'Feature roadmap',
       public: 'Personalisation, saved search alerts, richer comparison tools, map-based discovery.',
       portal: 'Bulk listing management, CRM/agency system integrations, workflow automation.',
     },
     {
-      param: 'Potential AI/LLM components',
+      param: 'AI / LLM',
       public:
-        'Fine-tuned model for search query understanding and ranking (natural language → filters). AI-generated listing summaries or suburb insights surfaced in the UI.',
+        'Natural language search (query → filters). AI-generated listing summaries and suburb insights surfaced in the UI.',
       portal:
-        'Fine-tuned model for listing description drafting from raw agent input. Duplicate/anomaly detection on submitted data. Photo quality and tagging checks.',
+        'Listing description drafting from raw agent input. Duplicate/anomaly detection. Photo quality and tagging checks.',
     },
     {
-      param: 'Agentic roadmap (projected)',
+      param: 'Agentic roadmap',
       public:
-        'Structured data/feeds suited to listing in AI shopping/assistant marketplaces (e.g. OpenAI plugin search). MCP server exposing search and listing data to agentic assistants.',
+        'Structured data suited to AI shopping/assistant marketplaces. MCP server exposing search and listing data to agentic assistants.',
       portal:
-        "Claude Code-style plugins or MCP tooling for agents' own AI assistants to draft/manage listings programmatically. Internal MCP server for agency CRM agents to query/update listings.",
+        "MCP tooling for agents' AI assistants to draft/manage listings programmatically. Internal MCP server for agency CRM agents.",
     },
   ];
 </script>

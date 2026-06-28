@@ -9,9 +9,7 @@
 
   const navItems: NavItem[] = [
     { id: 'intro', label: 'Introduction', depth: 0 },
-    { id: 'surfaces', label: 'Mapping the Two Apps', depth: 0 },
-    { id: 'analysis', label: 'Analysis', depth: 0 },
-    { id: 'architecture', label: 'Architecture', depth: 0 },
+    { id: 'surfaces', label: 'The Two Apps', depth: 0 },
     { id: 'team', label: 'Team', depth: 0 },
     { id: 'rendering', label: 'Rendering Strategy', depth: 1 },
     { id: 'migration', label: 'Migration Strategy', depth: 1 },
