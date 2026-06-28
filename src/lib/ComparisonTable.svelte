@@ -6,7 +6,8 @@
       param: 'Primary use case',
       public:
         'Discover and evaluate properties — filter/browse → listing detail → contact agent. Mostly accessed on mobile.',
-      portal: 'Create, edit, and manage listings efficiently and reliably. Mostly accessed on desktop.',
+      portal:
+        'Create, edit, and manage listings efficiently and reliably. Mostly accessed on desktop.',
     },
     {
       param: 'Typical session',
@@ -19,7 +20,8 @@
       param: 'Content freshness',
       public:
         'Mixed — listing status/price/photos change often during a sale cycle; suburb stats, school zones, and agent profiles change rarely.',
-      portal: "High — agents are actively editing; needs near-real-time consistency between what's saved and what's published.",
+      portal:
+        "High — agents are actively editing; needs near-real-time consistency between what's saved and what's published.",
     },
     {
       param: 'Rendering & performance',
