@@ -24,7 +24,7 @@
 
 <main class="lg:ml-62 min-h-screen">
   <!-- ── PAGE HEADER ── -->
-  <header class="bg-slate-300 px-1 pt-10 pb-10 max-lg:pt-20">
+  <header class=" bg-slate-300 px-1 pt-10 pb-10 max-lg:pt-20">
     <div class="mx-auto px-10 max-lg:px-5">
       <h1
         class="text-[clamp(1.5rem,4vw,2rem)] font-bold leading-[1.15] tracking-tight text-slate-800"
@@ -94,7 +94,7 @@
 
       <div class="my-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div class="rounded-xl border border-teal-200 bg-teal-50 p-6">
-          <div class="mb-1 text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-slate-500">
+          <div class="mb-1 text-[0.7rem] font-semibold tracking-[0.08em] text-slate-500 uppercase">
             Public Search &amp; Listings
           </div>
           <div class="mb-4 text-[1.1rem] font-bold text-teal-700">SSR + Tiered ISR</div>
@@ -108,7 +108,7 @@
           </ul>
         </div>
         <div class="rounded-xl border border-violet-200 bg-violet-50 p-6">
-          <div class="mb-1 text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-slate-500">
+          <div class="mb-1 text-[0.7rem] font-semibold tracking-[0.08em] text-slate-500 uppercase">
             Agent Portal
           </div>
           <div class="mb-4 text-[1.1rem] font-bold text-violet-700">CSR / SPA</div>
@@ -162,7 +162,7 @@
     </section>
 
     <!-- ── DEEP DIVES HEADER ── -->
-    <div class="border-b border-slate-100 pb-4 pt-14">
+    <div class="border-b border-slate-100 pt-14 pb-4">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
@@ -187,7 +187,7 @@
 
       <div class="my-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div class="rounded-xl border border-orange-200 bg-orange-50 p-5">
-          <div class="mb-1 text-[0.65rem] font-bold tracking-widest uppercase text-orange-600">
+          <div class="mb-1 text-[0.65rem] font-bold tracking-widest text-orange-600 uppercase">
             High-change content
           </div>
           <div class="mb-2 text-[0.9rem] font-semibold text-slate-900">Listing pages</div>
@@ -196,13 +196,13 @@
             to Under Offer within a day.
           </p>
           <div
-            class="rounded-md bg-orange-100 px-3 py-2 text-[0.78rem] font-semibold leading-snug text-orange-900"
+            class="rounded-md bg-orange-100 px-3 py-2 text-[0.78rem] leading-snug font-semibold text-orange-900"
           >
             Short ISR window (minutes) + on-demand invalidation triggered by portal saves
           </div>
         </div>
         <div class="rounded-xl border border-sky-200 bg-sky-50 p-5">
-          <div class="mb-1 text-[0.65rem] font-bold tracking-widest uppercase text-sky-600">
+          <div class="mb-1 text-[0.65rem] font-bold tracking-widest text-sky-600 uppercase">
             Low-change content
           </div>
           <div class="mb-2 text-[0.9rem] font-semibold text-slate-900">
@@ -213,7 +213,7 @@
             by a data pipeline, not by agents.
           </p>
           <div
-            class="rounded-md bg-sky-100 px-3 py-2 text-[0.78rem] font-semibold leading-snug text-sky-900"
+            class="rounded-md bg-sky-100 px-3 py-2 text-[0.78rem] leading-snug font-semibold text-sky-900"
           >
             Long ISR window (hours or days) — CDN serves cached content aggressively
           </div>
@@ -248,7 +248,7 @@
         {#each [{ n: '01', title: 'Security surface resets to zero', body: 'The legacy app has years of hardened patches. The rewrite launches unproven, under time pressure, requiring a full audit at the worst possible moment.' }, { n: '02', title: 'UI regression at scale', body: 'Responsive fixes, browser workarounds, and layout edge cases accumulate in old code without documentation. A rewrite rediscovers them in production with no quick rollback.' }, { n: '03', title: 'Business logic lives in the code', body: "Validation rules, permission hierarchies, pricing edge cases — these aren't in specs. They're discovered when the rewrite gets them wrong in production." }] as risk, i (risk.n)}
           <div class="flex items-start gap-5 px-6 py-5 {i < 2 ? 'border-b border-slate-100' : ''}">
             <div
-              class="w-8 shrink-0 text-[1.5rem] font-extrabold leading-snug tracking-tight text-slate-200"
+              class="w-8 shrink-0 text-[1.5rem] leading-snug font-extrabold tracking-tight text-slate-200"
             >
               {risk.n}
             </div>
@@ -262,7 +262,7 @@
 
       <!-- Section divider -->
       <div
-        class="my-10 flex items-center gap-4 text-[0.75rem] font-bold tracking-[0.08em] uppercase text-slate-500"
+        class="my-10 flex items-center gap-4 text-[0.75rem] font-bold tracking-[0.08em] text-slate-500 uppercase"
       >
         <span class="h-px flex-1 bg-slate-200"></span>
         The alternative: vertical slices via Custom Web Components
@@ -280,7 +280,7 @@
           class="mb-5 flex items-center gap-3 text-[0.78rem] font-semibold tracking-[0.01em] text-slate-400"
         >
           <span
-            class="rounded bg-teal-600/20 px-2 py-0.5 text-[0.62rem] font-bold tracking-[0.08em] uppercase text-teal-300"
+            class="rounded bg-teal-600/20 px-2 py-0.5 text-[0.62rem] font-bold tracking-[0.08em] text-teal-300 uppercase"
           >
             Web Components
           </span>
@@ -324,7 +324,7 @@
             </div>
           </div>
           {#if i < 4}
-            <div class="py-0.5 pl-[1.65rem] text-[1.1rem] font-bold leading-none text-teal-600">
+            <div class="py-0.5 pl-[1.65rem] text-[1.1rem] leading-none font-bold text-teal-600">
               ↓
             </div>
           {/if}
@@ -353,12 +353,12 @@
           <div class="border-b border-slate-100 py-7 last:border-b-0">
             <div class="mb-4 flex items-start gap-4">
               <div
-                class="w-10 shrink-0 text-[1.75rem] font-extrabold leading-none tracking-tight {risk.numClass}"
+                class="w-10 shrink-0 text-[1.75rem] leading-none font-extrabold tracking-tight {risk.numClass}"
               >
                 {risk.n}
               </div>
               <div>
-                <div class="mb-1 text-[1rem] font-bold leading-snug text-slate-900">
+                <div class="mb-1 text-[1rem] leading-snug font-bold text-slate-900">
                   {risk.title}
                 </div>
                 <span
