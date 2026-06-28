@@ -35,43 +35,28 @@
   </header>
 
   <div class="mx-auto max-w-800px px-10 pb-20 max-lg:px-5">
-    <!-- ══════════════════════════════════════
-         00 · INTRODUCTION
-    ══════════════════════════════════════ -->
-    <section id="intro" class="border-b border-slate-100 py-14">
+    <!-- 00 · INTRODUCTION -->
+    <section id="intro" class="border-b border-slate-100 py-10">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
         Introduction
       </h2>
-      <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The brief asked for an architecture proposal covering two surfaces: a public listings site
-        and an agent portal. This response works through that problem in layers — from mapping the
-        two apps, to the architectural conclusions, to three areas covered in depth.
+      <p class="mb-7 leading-[1.75] text-slate-600">
+        This document provides a solution to the Lead Front-End Engineering Exercise. It begins by
+        mapping the two web apps: a public listings site and an agent portal. Then it analyses the
+        two front-ends on some architectural dimensions. Next, it suggests the approach to
+        rebuilding the two front-ends, including the structure of the migration, leading the effort
+        across a team, the risks, and trade-offs. Finally, concludes with the final recommendations.
       </p>
-
-      <div
-        class="flex flex-col divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden"
-      >
-        {#each [{ label: '01 · The Two Surfaces', desc: 'A parameter-by-parameter comparison of the public site and portal — session model, performance profile, SEO needs, AI roadmap. Each row maps to an architectural decision.' }, { label: '02 · Analysis', desc: 'Technical dimensions that drive the architecture: security, rendering strategy, component library, PWA potential, SEO/AEO, and team structure.' }, { label: '03 · Architecture', desc: 'The two-app conclusion — SSR + tiered ISR for the public site, CSR/SPA for the portal — and the shared content model that connects them.' }, { label: '↳ Rendering Strategy', desc: 'Why the public site needs two ISR cache tiers (not one), and how on-demand invalidation keeps portal saves and public listings in sync.' }, { label: '↳ Migration Strategy', desc: 'The case against a full rebuild. How Custom Web Components enable feature-by-feature migration that deploys into both the legacy codebase and the new one simultaneously.' }, { label: '↳ Risks', desc: 'Four risks to name before work starts: SEO regression, design system drift, cache/edit consistency, and portal data loss.' }, { label: '04 · Conclusion', desc: 'The three principles that shaped every decision in this response: vertical slices over rebuilds, Web Components as the migration vehicle, and DevEx as a compounding investment.' }] as item (item.label)}
-          <div class="flex gap-4 px-5 py-4">
-            <div class="w-44 shrink-0 text-[0.78rem] font-semibold text-slate-900">
-              {item.label}
-            </div>
-            <div class="text-[0.82rem] leading-relaxed text-slate-500">{item.desc}</div>
-          </div>
-        {/each}
-      </div>
     </section>
 
-    <!-- ══════════════════════════════════════
-         01 · THE TWO SURFACES
-    ══════════════════════════════════════ -->
+    <!-- 01 · MAPPING THE TWO SURFACES -->
     <section id="surfaces" class="border-b border-slate-100 py-14">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        The Two Surfaces
+        Mapping the Two Surfaces
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
         The two apps have different session models, performance requirements, and content
@@ -80,9 +65,7 @@
       <ComparisonTable />
     </section>
 
-    <!-- ══════════════════════════════════════
-         03 · ANALYSIS
-    ══════════════════════════════════════ -->
+    <!-- 03 · ANALYSIS -->
     <section id="analysis" class="border-b border-slate-100 py-14">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
@@ -105,9 +88,7 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════
-         04 · ARCHITECTURE
-    ══════════════════════════════════════ -->
+    <!-- 04 · ARCHITECTURE -->
     <section id="architecture" class="border-b border-slate-100 py-14">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
