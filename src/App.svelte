@@ -39,13 +39,10 @@
          00 · INTRODUCTION
     ══════════════════════════════════════ -->
     <section id="intro" class="border-b border-slate-100 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        00 · Introduction
-      </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        What's in this response
+        Introduction
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
         The brief asked for an architecture proposal covering two surfaces: a public listings site
@@ -71,13 +68,10 @@
          01 · THE TWO SURFACES
     ══════════════════════════════════════ -->
     <section id="surfaces" class="border-b border-slate-100 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        01 · The Two Surfaces
-      </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        The two surfaces
+        The Two Surfaces
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
         The two apps have different session models, performance requirements, and content
@@ -90,13 +84,10 @@
          03 · ANALYSIS
     ══════════════════════════════════════ -->
     <section id="analysis" class="border-b border-slate-100 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        02 · Analysis
-      </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Technical dimensions
+        Analysis
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
         Each dimension below drives one or more decisions in the Architecture and Deep Dives
@@ -118,13 +109,10 @@
          04 · ARCHITECTURE
     ══════════════════════════════════════ -->
     <section id="architecture" class="border-b border-slate-100 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        03 · Architecture
-      </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Two apps, one content model
+        Architecture
       </h2>
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
         The two surfaces need different rendering strategies. A single approach either adds SSR
@@ -173,13 +161,10 @@
 
     <!-- ── DEEP DIVES HEADER ── -->
     <div class="border-b border-slate-100 pb-4 pt-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        04 · Deep Dives
-      </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Deep dives
+        Deep Dives
       </h2>
       <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
         Three areas where the conventional approach is either incomplete or wrong.
@@ -190,11 +175,8 @@
          RENDERING STRATEGY
     ══════════════════════════════════════ -->
     <section id="rendering" class="border-b border-slate-100 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-widest uppercase text-slate-500">
-        ↳ Rendering Strategy
-      </div>
       <h3 class="m-0 mb-5 text-[1.2rem] font-bold tracking-tight text-slate-900">
-        Two ISR tiers, not one
+        Rendering Strategy
       </h3>
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
         Public site content has two distinct freshness profiles. A single ISR window either
@@ -253,11 +235,8 @@
          MIGRATION STRATEGY
     ══════════════════════════════════════ -->
     <section id="migration" class="border-b border-slate-100 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-widest uppercase text-slate-500">
-        ↳ Migration Strategy
-      </div>
       <h3 class="m-0 mb-5 text-[1.2rem] font-bold tracking-tight text-slate-900">
-        Against full rebuilds
+        Migration Strategy
       </h3>
       <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
         Full rebuilds introduce three failure modes simultaneously:
@@ -361,12 +340,7 @@
          RISKS
     ══════════════════════════════════════ -->
     <section id="risks" class="py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-widest uppercase text-slate-500">
-        ↳ Risks
-      </div>
-      <h3 class="m-0 mb-5 text-[1.2rem] font-bold tracking-tight text-slate-900">
-        Risks to name upfront
-      </h3>
+      <h3 class="m-0 mb-5 text-[1.2rem] font-bold tracking-tight text-slate-900">Risks</h3>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
         The vertical slice approach mitigates some of these structurally. The ones below still need
         explicit management regardless of approach.
@@ -406,13 +380,10 @@
          CONCLUSION
     ══════════════════════════════════════ -->
     <section id="conclusion" class="border-t border-slate-200 py-14">
-      <div class="mb-2 text-[0.68rem] font-bold tracking-[0.12em] uppercase text-teal-600">
-        04 · Conclusion
-      </div>
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Three principles
+        Conclusion
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
         Every architectural decision in this response follows from three principles.
