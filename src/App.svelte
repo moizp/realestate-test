@@ -60,7 +60,7 @@
       </h2>
       <p class="mb-7 leading-[1.75] text-slate-600">
         The two apps have different session models, performance requirements, and content
-        characteristics. Each row below maps to a specific architectural decision.
+        characteristics. This table documents some relevant aspects of each web app.
       </p>
       <ComparisonTable />
     </section>
@@ -73,8 +73,8 @@
         Analysis
       </h2>
       <p class="mb-7 leading-[1.75] text-slate-600">
-        Each dimension below drives one or more decisions in the Architecture and Deep Dives
-        sections.
+        Based on the requirements of each app, we can derive some architectural parameters that may
+        drive the overall design. The following table compares the two apps on these dimensions.
       </p>
       <AnalysisTable />
     </section>

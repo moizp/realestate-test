@@ -35,19 +35,19 @@
       portal: 'None — authenticated, no indexing requirement.',
     },
     {
-      param: 'AI components',
+      param: 'Feature roadmap (projected)',
+      public: 'Personalisation, saved search alerts, richer comparison tools, map-based discovery.',
+      portal: 'Bulk listing management, CRM/agency system integrations, workflow automation.',
+    },
+    {
+      param: 'Potential AI/LLM components',
       public:
         'Fine-tuned model for search query understanding and ranking (natural language → filters). AI-generated listing summaries or suburb insights surfaced in the UI.',
       portal:
         'Fine-tuned model for listing description drafting from raw agent input. Duplicate/anomaly detection on submitted data. Photo quality and tagging checks.',
     },
     {
-      param: 'Future product roadmap',
-      public: 'Personalisation, saved search alerts, richer comparison tools, map-based discovery.',
-      portal: 'Bulk listing management, CRM/agency system integrations, workflow automation.',
-    },
-    {
-      param: 'AI roadmap',
+      param: 'Agentic roadmap (projected)',
       public:
         'Structured data/feeds suited to listing in AI shopping/assistant marketplaces (e.g. OpenAI plugin search). MCP server exposing search and listing data to agentic assistants.',
       portal:
