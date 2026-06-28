@@ -10,9 +10,9 @@
   const navItems: NavItem[] = [
     { id: 'intro', label: 'Introduction', depth: 0 },
     { id: 'surfaces', label: 'The Two Apps', depth: 0 },
-    { id: 'delivery', label: 'Value Delivery', depth: 0 },
-    { id: 'team', label: 'Team Factors', depth: 0 },
+    { id: 'delivery', label: 'Structure of Work', depth: 0 },
     { id: 'risks', label: 'Risks & Tradeoffs', depth: 0 },
+    { id: 'team', label: 'Team Factors', depth: 0 },
     { id: 'conclusion', label: 'Conclusion', depth: 0 },
   ];
 
