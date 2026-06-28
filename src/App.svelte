@@ -47,7 +47,7 @@
       severity: 'High',
       severityClass: 'bg-orange-100 text-orange-600',
       numClass: 'text-orange-400',
-      body: "React's idiosyncratic model — hooks rules, synthetic events, render cycles — trains React thinking rather than web platform thinking. Developers who have spent years inside its abstractions often find the underlying platform unfamiliar when it matters. Meanwhile, Svelte and Astro have matured to the point where React's ecosystem advantage no longer offsets its conceptual overhead. Astro's Island Architecture is worth noting specifically: pages are mostly static HTML with interactive islands loading on demand, which maps directly to the slice approach — and existing EmberJS components can be wrapped as Web Components and delivered as Astro islands before they are replaced. Large companies have quietly moved away from React for similar reasons.",
+      body: "React's idiosyncratic model — hooks rules, synthetic events, render cycles — trains React thinking rather than web platform thinking. Developers who have spent years inside its abstractions often find the underlying platform unfamiliar when it matters. AI coding assistants compound this: generated React code frequently violates hooks rules or introduces subtle render-cycle bugs that require deep framework knowledge to diagnose. The same task in Svelte or Astro — closer to the web platform — produces code that is more straightforward to review, test, and debug without internalising a framework's quirks. Large companies have quietly moved away from React for similar reasons.",
       mitigation:
         'Architect against the framework. Domain logic, state, and routing rules belong in plain TypeScript modules the framework merely calls. A component that delegates to a framework-agnostic module is portable; one that weaves framework primitives throughout is not.',
       ref: {
@@ -239,14 +239,14 @@
       </p>
 
       <div class="overflow-hidden rounded-lg mx-10 border border-slate-200 bg-slate-50 p-6">
-        <div class="mb-5 text-[0.72rem] font-bold tracking-[0.08em] text-slate-400 uppercase">
+        <div class="mb-5 text-[0.8rem] font-bold tracking-[0.08em] text-slate-500 uppercase">
           Why Custom Web Components?
         </div>
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {#each [{ title: 'Framework-agnostic', body: 'Compiles to a standard custom element — drops into EmberJS, any future stack, or a partner site.', code: "customElements.define('rea-search', SearchWidget)" }, { title: 'Self-contained', body: 'Owns its logic and tests. Developed and deployed independently of the surrounding codebase.', code: null }, { title: 'Side-by-side deployment', body: 'Ships into the legacy app alongside the old implementation. Validate with real traffic. Remove the old code once stable.', code: '<rea-search-filters />' }, { title: 'One component, two hosts', body: 'The same component runs in EmberJS during migration and in the new app after. No duplicate work.', code: null }] as feat (feat.title)}
             <div class="rounded-lg border border-slate-200 bg-white p-4">
-              <div class="mb-1.5 text-[0.82rem] font-semibold text-slate-800">{feat.title}</div>
-              <p class="m-0 text-[0.8rem] leading-relaxed text-slate-500">
+              <div class="mb-1.5 text-[0.9rem] font-semibold text-slate-800">{feat.title}</div>
+              <p class="m-0 text-[0.9rem] leading-relaxed text-slate-500">
                 {feat.body}{#if feat.code}&nbsp;<code
                     class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.82em] text-teal-700"
                     >{feat.code}</code
@@ -256,6 +256,17 @@
           {/each}
         </div>
       </div>
+
+      <p class="mt-6 mb-0 leading-[1.75] text-slate-600">
+        Web Components are a browser specification, not a library abstraction — which also matters
+        for AI-assisted development. Coding assistants understand them precisely because the
+        interface is standardised: attributes, properties, events, and lifecycle are defined by the
+        spec, not by a framework version. Each component is a bounded, testable unit with a clear
+        public surface. Combined with a consistent naming convention (<code
+          class="rounded bg-slate-100 px-1 py-0.5 font-mono text-[0.88em] text-teal-700">rea-*</code
+        >) and shared TypeScript types, AI-generated code can follow organisation conventions
+        reliably — and when it breaks, the component boundary makes the problem easy to isolate.
+      </p>
     </section>
 
     <!-- RISKS & TRADEOFFS -->
