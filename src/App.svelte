@@ -51,12 +51,12 @@
       </p>
     </section>
 
-    <!-- 01 · MAPPING THE TWO SURFACES -->
+    <!-- 01 · MAPPING THE TWO APPS -->
     <section id="surfaces" class="border-b border-slate-100 py-10">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
-        Mapping the Two Surfaces
+        Mapping the Two Apps
       </h2>
       <p class="mb-7 leading-[1.75] text-slate-600">
         The two apps have different session models, performance requirements, and content
@@ -74,7 +74,7 @@
       </h2>
       <p class="mb-7 leading-[1.75] text-slate-600">
         Based on the requirements of each app, we can derive some architectural parameters that may
-        drive the overall design. The following table compares the two apps on these dimensions.
+        drive the design decisions. The following table compares the two apps on these parameters.
       </p>
       <AnalysisTable />
     </section>
@@ -122,13 +122,6 @@
           </ul>
         </div>
       </div>
-
-      <p class="mb-0 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Both surfaces operate on the same entities — listings, suburbs, agents — through a shared
-        API. The portal writes; the public site reads. Defining that contract as shared TypeScript
-        types before either frontend is built is the most valuable early investment. Custom Web
-        Components bridge the two during migration — see Migration Strategy.
-      </p>
     </section>
 
     <!-- TEAM -->

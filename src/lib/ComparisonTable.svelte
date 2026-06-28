@@ -4,8 +4,10 @@
   const rows: Row[] = [
     {
       param: 'Primary use case',
-      public: 'Discover and evaluate properties — filter/browse → listing detail → contact agent',
-      portal: 'Create, edit, and manage listings efficiently and reliably',
+      public:
+        'Discover and evaluate properties — filter/browse → listing detail → contact agent. Mostly accessed on mobile devices.',
+      portal:
+        'Create, edit, and manage listings efficiently and reliably. Mostly accessed on desktops/laptops.',
     },
     {
       param: 'Typical session',
@@ -32,7 +34,8 @@
       param: 'SEO / GEO',
       public:
         'Critical — organic search is a primary acquisition channel. Must be crawlable/indexable and increasingly legible to AI answer engines (structured data, clean canonical URLs, fast TTFB).',
-      portal: 'None — authenticated, no indexing requirement.',
+      portal:
+        'None — authenticated, no indexing requirement. Potential requirement for onboarding new agents via search in future.',
     },
     {
       param: 'Feature roadmap (projected)',
