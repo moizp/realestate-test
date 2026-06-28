@@ -27,7 +27,7 @@
   <header class="bg-slate-300 px-1 pt-10 pb-10 max-lg:pt-20">
     <div class="mx-auto px-10 max-lg:px-5">
       <h1
-        class="text-[clamp(1.5rem,4vw,2rem)] font-bold leading-[1.15] tracking-tight text-slate-700"
+        class="text-[clamp(1.5rem,4vw,2rem)] font-bold leading-[1.15] tracking-tight text-slate-800"
       >
         Lead Front-End Engineering Exercise
       </h1>
@@ -42,7 +42,7 @@
       >
         Introduction
       </h2>
-      <p class="mb-7 leading-[1.75] text-slate-600">
+      <p class="mb-1 leading-[1.75] text-slate-600">
         This document provides a solution to the Lead Front-End Engineering Exercise. It begins by
         mapping the two web apps: a public listings site and an agent portal. Then it analyses the
         two front-ends on some architectural dimensions. Next, it suggests the approach to
@@ -52,13 +52,13 @@
     </section>
 
     <!-- 01 · MAPPING THE TWO SURFACES -->
-    <section id="surfaces" class="border-b border-slate-100 py-14">
+    <section id="surfaces" class="border-b border-slate-100 py-10">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
         Mapping the Two Surfaces
       </h2>
-      <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
+      <p class="mb-7 leading-[1.75] text-slate-600">
         The two apps have different session models, performance requirements, and content
         characteristics. Each row below maps to a specific architectural decision.
       </p>
@@ -66,30 +66,21 @@
     </section>
 
     <!-- 03 · ANALYSIS -->
-    <section id="analysis" class="border-b border-slate-100 py-14">
+    <section id="analysis" class="border-b border-slate-100 py-10">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
         Analysis
       </h2>
-      <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
+      <p class="mb-7 leading-[1.75] text-slate-600">
         Each dimension below drives one or more decisions in the Architecture and Deep Dives
         sections.
       </p>
       <AnalysisTable />
-      <div
-        class="mt-5 flex items-start gap-3 rounded-lg border border-green-200 bg-green-50 px-5 py-4"
-      >
-        <span class="mt-0.5 shrink-0 text-green-600">↓</span>
-        <p class="m-0 text-[0.85rem] leading-[1.55] text-green-800">
-          These are two distinct applications, not one app with two modes. Custom Web Components
-          appear in both columns as the connective tissue during migration.
-        </p>
-      </div>
     </section>
 
     <!-- 04 · ARCHITECTURE -->
-    <section id="architecture" class="border-b border-slate-100 py-14">
+    <section id="architecture" class="border-b border-slate-100 py-10">
       <h2
         class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
       >
@@ -390,7 +381,7 @@
     <!-- ── FOOTER ── -->
     <footer class="mt-4 border-t border-slate-100 py-8">
       <div class="text-[0.78rem] text-slate-400">
-        Built with Svelte 5, Vite, and Tailwind ·
+        Moiz Penkar ·
         <a
           href="https://github.com/moizp/realestate-test"
           target="_blank"

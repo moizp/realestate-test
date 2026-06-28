@@ -63,7 +63,7 @@
 
 <!-- Mobile top bar -->
 <nav
-  class="fixed top-0 right-0 left-0 border-b border-slate-800 bg-slate-800 lg:hidden"
+  class="fixed top-0 right-0 left-0 border-b border-slate-800 bg-slate-700 lg:hidden"
   style="z-index: 50;"
   aria-label="Page sections"
 >
@@ -75,7 +75,7 @@
         class="shrink-0 cursor-pointer border-b-2 px-3 py-[0.85rem] whitespace-nowrap font-[inherit] transition-colors duration-150
           {activeSection === item.id
           ? 'border-b-teal-600 text-slate-50'
-          : 'border-b-transparent text-slate-500 hover:text-slate-300'}"
+          : 'border-b-transparent text-slate-400 hover:text-slate-300'}"
         onclick={() => scrollTo(item.id)}
         type="button"
       >

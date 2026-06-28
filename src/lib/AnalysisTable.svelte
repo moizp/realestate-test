@@ -54,33 +54,23 @@
 </script>
 
 <div
-  class="w-full overflow-x-auto rounded-xl border border-slate-200 [-webkit-overflow-scrolling:touch]"
+  class="w-full overflow-x-auto rounded-lg border border-slate-200 [-webkit-overflow-scrolling:touch]"
 >
-  <table class="w-full min-w-170 border-collapse text-[0.85rem]">
+  <table class="w-full min-w-170 border-collapse text-[0.9rem]">
     <thead>
-      <tr class="bg-indigo-950">
-        <th
-          class="w-40 border-b border-indigo-900 px-[1.1rem] py-[0.9rem] text-left text-[0.72rem] font-medium tracking-wider uppercase text-slate-500"
-        >
-          Parameter
+      <tr class="bg-slate-700">
+        <th class="w-40 border-b border-indigo-900 px-[1.1rem] py-[0.9rem] text-left">
+          <div class="flex items-center gap-2 text-[0.85rem] font-semibold text-slate-50">
+            Parameter
+          </div>
         </th>
         <th class="border-b border-indigo-900 px-[1.1rem] py-[0.9rem] text-left">
           <div class="flex items-center gap-2 text-[0.85rem] font-semibold text-slate-50">
-            <span
-              class="inline-block rounded px-[0.4rem] py-[0.15rem] text-[0.62rem] font-bold tracking-[0.08em] uppercase bg-teal-600/25 text-teal-300"
-            >
-              Public
-            </span>
             Search &amp; Listings
           </div>
         </th>
         <th class="border-b border-indigo-900 px-[1.1rem] py-[0.9rem] text-left">
           <div class="flex items-center gap-2 text-[0.85rem] font-semibold text-slate-50">
-            <span
-              class="inline-block rounded px-[0.4rem] py-[0.15rem] text-[0.62rem] font-bold tracking-[0.08em] uppercase bg-indigo-400/25 text-indigo-300"
-            >
-              Portal
-            </span>
             Agent Portal
           </div>
         </th>
@@ -92,9 +82,7 @@
           class="border-b border-slate-100 transition-colors duration-100 last:border-b-0
             {i % 2 === 1 ? 'bg-violet-50/50' : 'bg-white'} hover:bg-violet-50"
         >
-          <td
-            class="px-[1.1rem] py-4 align-top text-[0.78rem] font-semibold whitespace-nowrap text-indigo-950"
-          >
+          <td class="px-[1.1rem] py-4 align-top whitespace-nowrap text-indigo-950">
             {row.param}
           </td>
           <td class="px-[1.1rem] py-[0.9rem] align-top leading-relaxed text-slate-700">
