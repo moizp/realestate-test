@@ -68,29 +68,25 @@
     },
     {
       n: '05',
-      title: 'Dependency hell',
+      title: 'Framework runtime and dependency sprawl',
       severity: 'Medium',
       severityClass: 'bg-yellow-100 text-yellow-600',
       numClass: 'text-yellow-400',
-      body: 'Typical React projects end up having multitudes of dependencies (and sub-dependencies), if not careful. Each one is a potential security hole, and each one is a potential source of breaking changes. The more dependencies, the more risk and maintenance effort required.',
+      body: 'Frameworks that ship a JavaScript runtime to the browser (React, Vue, Angular) add baseline bundle weight before a single line of product code runs. Transitive dependencies compound this: a typical React project accumulates hundreds of sub-dependencies, each a potential CVE and each with its own breaking-change risk. The security surface grows with every npm install.',
       mitigation:
-        'Typescript first, e.g. roll up your own state management and routing. Use only the dependencies that are necessary for the job. Web apps that use non-library frameworks tend to have fewer dependencies than others.',
+        'Prefer compile-to-vanilla frameworks (Svelte, Astro) that ship no runtime — the framework disappears at build time, leaving only product code in the browser. Reach for dependencies only when the web platform genuinely cannot. TypeScript-first domain logic (state, routing, validation in plain TS modules) keeps the critical path free of framework churn.',
       ref: null,
     },
   ];
 
   const teamFactors = [
     {
-      title: 'No big-bang learning curve',
-      body: 'A full framework switch asks everyone to learn a new stack while shipping under normal delivery pressure. The slice approach structures this differently: framework fluency is built feature by feature, in production, where it counts.',
+      title: 'Low conceptual overhead — by design',
+      body: 'Framework fluency is built feature by feature, in production. Choosing frameworks with lower conceptual overhead (Svelte, Astro) over ones with idiosyncratic models (React hooks, synthetic events) reduces the learning tax on every developer. The first two or three slices establish component conventions, TypeScript patterns, and CI gates — by the time a critical feature migrates, nobody is learning the framework and the domain simultaneously.',
     },
     {
-      title: 'Patterns before pressure',
-      body: 'The first two or three slices establish component conventions, TypeScript patterns, and CI gates. By the time a critical feature migrates, nobody is learning the framework and the domain simultaneously.',
-    },
-    {
-      title: 'Avoid steep learning curve',
-      body: 'Choosing a framework with a gentle learning curve reduces the risk of delays and burnout during the transition period. Svelte and Astro are both strong candidates, with lower conceptual overhead than React. They are also known for better DevEx and performance at scale.',
+      title: 'Pairing and PR review as the upskilling loop',
+      body: 'The lead architects each slice; others own the implementation under lead review. Learning happens inside delivery, not before it. This is the upskilling mechanism — it runs at normal sprint cadence without blocking progress or requiring dedicated training time.',
     },
     {
       title: 'EmberJS knowledge stays in use',
@@ -186,13 +182,14 @@
       >
         Structure of Work
       </h2>
-      <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The existing apps carry years of accumulated business logic, browser workarounds, and
-        hardened security patches. The business goal is to deliver more value to users and respond
-        to user feedback. The rewrite is a side effect, not the objective. We can structure the
-        modernising effort to focus on early value delivery informed by user feedback.
+      <p class="mb-4 leading-[1.75] text-slate-600">
+        The existing web apps carry years of accumulated business logic, browser workarounds, and
+        hardened security patches. They have matured over a long time after a lot of effort. The
+        business goal is to continue delivering more value to users and timely respond to their
+        feedback. The rebuild/rewrite is a side effect, not the objective. We can structure the
+        modernising effort to focus on continuous value delivery informed by user feedback.
       </p>
-      <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
+      <p class="mb-7 leading-[1.75] text-slate-600">
         Rebuild one feature at a time — each vertical slice of the app (end-to-end feature) ships to
         real users before the next one starts, generating feedback that shapes what follows. This is
         the
@@ -317,8 +314,11 @@
         Team Factors
       </h2>
       <p class="mb-7 leading-[1.75] text-slate-600">
-        The existing team knows EmberJS, the codebase, and the domain. Existing team does not have
-        experience in newer technologies/frameworks.
+        The existing team has deep product and domain knowledge — the hardest thing to acquire. The
+        gap is framework expertise, which is the context for this hire. The new position's role can
+        be to bring that expertise and create the conditions for the team to develop it through
+        shipping. The upskilling is motivated by shipping features and learning in production,
+        fixing the issues early and continuously.
       </p>
 
       <div
@@ -376,7 +376,9 @@
           brings Island Architecture as a first-class primitive — interactive components load per island,
           which aligns naturally with the slice approach. It also means existing EmberJS components can
           be wrapped as Web Components and delivered as Astro islands during the transition, before they
-          are replaced.
+          are replaced. Frameworks closer to the web platform produce developers who better understand
+          the web, not just the framework(s). The goal would be good engineers as opposed to good React
+          engineers.
         </p>
       </div>
     </section>
