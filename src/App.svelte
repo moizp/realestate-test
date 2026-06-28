@@ -141,7 +141,7 @@
       <ComparisonTable />
 
       <p class="mt-8 mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
-        The rendering row above drives the single most consequential split in the architecture.
+        This drives a signficant distinction in the architecture of the two apps.
       </p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div class="rounded-xl border border-teal-200 bg-teal-50 p-6">
@@ -357,6 +357,21 @@
           <strong class="font-semibold text-slate-900">Start with foundations:</strong> shared TypeScript
           content types and UI component designs before the first slice. They don't need to be complete
           and gradually grow — later decisions build on them and undoing them is expensive.
+        </p>
+
+        <p class="m-0 leading-[1.75] text-slate-600">
+          <strong class="font-semibold text-slate-900"
+            >Possible target stack: Astro for the public listings site, SvelteKit for the portal.
+          </strong>
+          This maps directly to the architecture split. Astro is purpose-built for content sites — Island
+          Architecture is first-class, pages are static HTML by default with interactive islands hydrating
+          on demand, and SEO is built in. Astro delivers best CWA scores too with the least JS overhead.
+          SvelteKit provides a full reactive SPA with first-class TypeScript and PWA support, which is
+          exactly what the portal needs for complex form state, offline drafting, and real-time consistency.
+          The compounding benefit: Astro natively consumes Svelte components, so the shared component
+          library is written once in Svelte and used by both surfaces. A Svelte-based Web Component works
+          in Astro, in SvelteKit, and in the legacy EmberJS app during migration. One component, three
+          hosts.
         </p>
 
         <p class="m-0 leading-[1.75] text-slate-600">
