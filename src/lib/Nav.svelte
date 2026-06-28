@@ -12,6 +12,7 @@
     { id: 'surfaces', label: 'The Two Surfaces', depth: 0 },
     { id: 'analysis', label: 'Analysis', depth: 0 },
     { id: 'architecture', label: 'Architecture', depth: 0 },
+    { id: 'team', label: 'Team', depth: 0 },
     { id: 'rendering', label: 'Rendering Strategy', depth: 1 },
     { id: 'migration', label: 'Migration Strategy', depth: 1 },
     { id: 'risks', label: 'Risks', depth: 1 },

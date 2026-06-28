@@ -82,7 +82,7 @@
           class="border-b border-slate-100 transition-colors duration-100 last:border-b-0
             {i % 2 === 1 ? 'bg-violet-50/50' : 'bg-white'} hover:bg-violet-50"
         >
-          <td class="px-[1.1rem] py-4 align-top whitespace-nowrap text-indigo-950">
+          <td class="px-[1.1rem] py-4 whitespace-nowrap text-indigo-950 align-top">
             {row.param}
           </td>
           <td class="px-[1.1rem] py-[0.9rem] align-top leading-relaxed text-slate-700">

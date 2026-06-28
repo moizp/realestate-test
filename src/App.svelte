@@ -131,6 +131,36 @@
       </p>
     </section>
 
+    <!-- TEAM -->
+    <section id="team" class="border-b border-slate-100 py-10">
+      <h2
+        class="m-0 mb-5 text-[clamp(1.4rem,3vw,1.875rem)] font-bold tracking-tight text-slate-900"
+      >
+        Team
+      </h2>
+      <p class="mb-4 text-[0.9375rem] leading-[1.75] text-slate-600">
+        The existing front-ends are built in EmberJS. The team's familiarity with the framework, the
+        codebase patterns, and the domain is an asset — domain knowledge transfers regardless of
+        which framework the new stack uses.
+      </p>
+      <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
+        A big-bang framework switch asks everyone to learn a new stack while shipping under normal
+        delivery pressure. The slice approach structures this differently: framework fluency is
+        built incrementally, feature by feature, in production.
+      </p>
+
+      <div
+        class="flex flex-col divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200"
+      >
+        {#each [{ title: 'Early slices as training ground', body: 'Lower-complexity, high-value features migrate first. The team learns the new stack in production on features where a regression is recoverable — not on listing search or agent workflows where a bug is a business incident.' }, { title: 'Patterns before pressure', body: 'The first two or three slices establish component conventions, TypeScript patterns, and CI gates. By the time a critical feature migrates, nobody is learning the framework and the domain simultaneously.' }, { title: 'EmberJS knowledge stays in use', body: 'The team maintains the legacy codebase while building new expertise slice by slice. No developer is asked to abandon what they know mid-project. Data model familiarity, edge-case awareness, and domain knowledge transfer directly.' }, { title: 'Pairing and PR review as the upskilling loop', body: "A senior developer leads each slice's architecture; others own implementation with lead review. That's the learning mechanism — it runs alongside normal delivery without blocking it." }, { title: 'Fluency as a by-product of shipping', body: 'By the time the last EmberJS route is retired, the team has production experience across every major feature area of the new stack. Framework fluency is earned through shipping, not assumed upfront.' }] as item (item.title)}
+          <div class="px-5 py-4 text-[0.84rem] leading-relaxed text-slate-600">
+            <span class="font-semibold text-slate-900">{item.title}.</span>
+            {item.body}
+          </div>
+        {/each}
+      </div>
+    </section>
+
     <!-- ── DEEP DIVES HEADER ── -->
     <div class="border-b border-slate-100 pb-4 pt-14">
       <h2
@@ -319,7 +349,7 @@
       </p>
 
       <div class="flex flex-col">
-        {#each [{ n: '01', title: 'SEO regression during migration', severity: 'Critical', severityClass: 'bg-red-100 text-red-600', numClass: 'text-red-400', body: 'Organic search is a primary acquisition channel. URL structure changes break link equity, SSR misconfiguration serves crawlers empty content, and Core Web Vitals regression hits rankings directly.', mitigation: 'Vertical slices migrate one URL pattern at a time with baselines established before the legacy route is retired. URL-level integration tests on every build. Synthetic CWV monitoring from day one. Redirect testing is a required gate before any URL change ships.' }, { n: '02', title: 'Design system drift', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Two surfaces, different shipping cadences — the design language diverges until fixing it requires cross-team coordination. Compounds with every slice.', mitigation: 'Shared component library consumed by both surfaces. Visual regression tests (Chromatic or equivalent) on every PR. Design tokens managed centrally so a colour change propagates everywhere at once.' }, { n: '03', title: 'Cache vs. portal edit consistency', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Agents saving a listing expect to see it live immediately. A 5-minute ISR window erodes trust in the portal.', mitigation: 'On-demand ISR triggered on save gives near-real-time public updates. A preview URL in the portal bypasses the CDN cache so agents can verify changes before the public page updates.' }, { n: '04', title: 'Portal data loss', severity: 'Medium / High', severityClass: 'bg-amber-100 text-amber-700', numClass: 'text-amber-400', body: 'A lost listing draft or overwritten concurrent edit is a trust problem, not a UX inconvenience. Portal data-loss incidents are not recoverable in the same way a slow page load is.', mitigation: 'Optimistic UI with rollback states. Auto-save with visible status. Conflict detection for concurrent edits. Resilient reconnection handling so a network drop does not lose draft content.' }] as risk (risk.n)}
+        {#each [{ n: '01', title: 'SEO regression during migration', severity: 'Critical', severityClass: 'bg-red-100 text-red-600', numClass: 'text-red-400', body: 'Organic search is a primary acquisition channel. URL structure changes break link equity, SSR misconfiguration serves crawlers empty content, and Core Web Vitals regression hits rankings directly.', mitigation: 'Vertical slices migrate one URL pattern at a time with baselines established before the legacy route is retired. URL-level integration tests on every build. Synthetic CWV monitoring from day one. Redirect testing is a required gate before any URL change ships.' }, { n: '02', title: 'Design system drift', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Two surfaces, different shipping cadences — the design language diverges until fixing it requires cross-team coordination. Compounds with every slice.', mitigation: 'Shared component library consumed by both surfaces. Visual regression tests (Chromatic or equivalent) on every PR. Design tokens managed centrally so a colour change propagates everywhere at once.' }, { n: '03', title: 'Cache vs. portal edit consistency', severity: 'High', severityClass: 'bg-orange-100 text-orange-600', numClass: 'text-orange-400', body: 'Agents saving a listing expect to see it live immediately. A 5-minute ISR window erodes trust in the portal.', mitigation: 'On-demand ISR triggered on save gives near-real-time public updates. A preview URL in the portal bypasses the CDN cache so agents can verify changes before the public page updates.' }, { n: '04', title: 'Portal data loss', severity: 'Medium / High', severityClass: 'bg-amber-100 text-amber-700', numClass: 'text-amber-400', body: 'A lost listing draft or overwritten concurrent edit is a trust problem, not a UX inconvenience. Portal data-loss incidents are not recoverable in the same way a slow page load is.', mitigation: 'Optimistic UI with rollback states. Auto-save with visible status. Conflict detection for concurrent edits. Resilient reconnection handling so a network drop does not lose draft content.' }, { n: '05', title: 'Framework lock-in and skill narrowing', severity: 'Medium', severityClass: 'bg-sky-100 text-sky-700', numClass: 'text-sky-400', body: "Investing deeply in a single component framework carries two compounding risks: the framework may fall out of favour, and developers may become specialists in the framework rather than the web platform. Large companies have quietly moved away from the React ecosystem for this reason — React's idiosyncratic model (hooks rules, synthetic events, render cycles) trains React thinking rather than general web instincts. Developers who have spent years inside React's abstractions often find the underlying platform unfamiliar when it matters.", mitigation: 'Architect against the framework rather than for it. Domain logic, state management, and routing rules belong in plain TypeScript modules that the framework merely calls — not inside framework-specific hooks or stores. A component that delegates to a framework-agnostic module is portable; one that weaves framework primitives throughout is not. Custom Web Components reinforce this: a feature built as a custom element carries no framework dependency and survives any framework transition.', ref: { text: 'When Silicon Valley quietly shuns React.js', url: 'https://www.linkedin.com/pulse/when-silicon-valley-quietly-shuns-reactjs-gontran-baerts-y3hke/' } }] as risk (risk.n)}
           <div class="border-b border-slate-100 py-7 last:border-b-0">
             <div class="mb-4 flex items-start gap-4">
               <div
@@ -339,10 +369,20 @@
               </div>
             </div>
             <p class="mb-3 text-[0.875rem] leading-[1.75] text-slate-600">{risk.body}</p>
-            <p class="mb-0 text-[0.875rem] leading-[1.75] text-slate-600">
+            <p class="{risk.ref ? 'mb-2' : 'mb-0'} text-[0.875rem] leading-[1.75] text-slate-600">
               <strong class="font-semibold text-slate-900">Mitigation:</strong>
               {risk.mitigation}
             </p>
+            {#if risk.ref}
+              <p class="mb-0 text-[0.8rem] leading-[1.75] text-slate-400">
+                Further reading: <a
+                  href={risk.ref.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-teal-600 hover:underline">{risk.ref.text}</a
+                >
+              </p>
+            {/if}
           </div>
         {/each}
       </div>
@@ -358,23 +398,46 @@
         Conclusion
       </h2>
       <p class="mb-7 text-[0.9375rem] leading-[1.75] text-slate-600">
-        Every architectural decision in this response follows from three principles.
+        The architecture is clear from the constraints. The harder questions are about sequencing
+        and trade-offs under real delivery pressure.
       </p>
 
-      <div class="flex flex-col gap-4">
-        {#each [{ n: '01', title: 'Vertical slices over full rebuilds', body: 'Full rebuilds force all risk — security, UI regression, business logic gaps — to materialise simultaneously. Shipping end-to-end feature slices keeps risk contained, ships value early, and produces a measurable baseline after each increment.' }, { n: '02', title: 'Web Components as the migration vehicle', body: 'Custom elements are framework-agnostic and drop into any codebase. A feature runs in the legacy app and the new one simultaneously — validated with real traffic before the old implementation is removed.' }, { n: '03', title: 'DevEx compounds', body: 'Shared TypeScript types, a governed component library, and CI gates are not infrastructure for the migration — they are the migration. Each slice ships faster than the last because the tooling already exists.' }] as item (item.n)}
-          <div class="flex gap-5 rounded-xl border border-slate-200 bg-slate-50 px-6 py-5">
-            <div
-              class="w-8 shrink-0 text-[1.5rem] font-extrabold leading-none tracking-tight text-slate-200"
-            >
-              {item.n}
-            </div>
-            <div>
-              <div class="mb-2 text-[0.875rem] font-semibold text-slate-900">{item.title}</div>
-              <p class="m-0 text-[0.825rem] leading-relaxed text-slate-500">{item.body}</p>
-            </div>
-          </div>
-        {/each}
+      <div class="flex flex-col gap-5">
+        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+          <strong class="font-semibold text-slate-900">Before the first slice:</strong> shared TypeScript
+          content types for listings, suburbs, and agents, and shared design tokens. Neither needs to
+          be complete — they grow with each slice — but later decisions build on them, and undoing them
+          is expensive. This is the highest-leverage investment in the migration.
+        </p>
+
+        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+          <strong class="font-semibold text-slate-900">First slice selection:</strong> choose based on
+          business value and recoverable risk, not simplicity. A medium-complexity, high-traffic feature
+          — search filters, listing card — is better than a trivial one that teaches nothing or a critical
+          one that can't afford a regression.
+        </p>
+
+        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+          <strong class="font-semibold text-slate-900">The trade-off to name early:</strong> the slice
+          approach is slower to show a "new platform" than a full rebuild. The answer to stakeholder pressure
+          is that each slice ships into production on the legacy codebase — progress is visible for real
+          users before the new platform exists. A full rebuild cannot make that claim.
+        </p>
+
+        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+          <strong class="font-semibold text-slate-900">On framework choice:</strong> the recommendations
+          here — SSR, ISR, Web Components — describe what the architecture must do, not which library
+          does it. The right framework is the one the team can hire for, maintain, and ship on for the
+          next five years. The EmberJS-to-new-stack transition is a real constraint that belongs in that
+          decision, not an afterthought.
+        </p>
+
+        <p class="m-0 text-[0.9375rem] leading-[1.75] text-slate-600">
+          <strong class="font-semibold text-slate-900">On tooling:</strong> TypeScript strict mode, a
+          shared component library with visual regression tests, and CI gates on Core Web Vitals are not
+          team overhead — they are what prevents drift across two surfaces and two teams. The cost is
+          front-loaded. The return compounds on every subsequent slice.
+        </p>
       </div>
     </section>
 
